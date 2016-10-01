@@ -60,3 +60,25 @@ extension Vehicle: JSONDecodable {
 }
 
 // MARK: Starships
+
+
+struct Starship {
+    
+    let name: String?
+    let cost: String?
+    let length: String?
+    let starshipClass: String?
+    let crew: String?
+    
+}
+
+extension Starship: JSONDecodable {
+    
+    init?(JSON: [String : AnyObject]) {
+        name = JSON["name"] as? String
+        cost = JSON["cost_in_credits"] as? String
+        length = JSON["length"] as? String
+        starshipClass = JSON["starship_class"] as? String
+        crew = JSON["crew"] as? String
+    }
+}
