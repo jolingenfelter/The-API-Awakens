@@ -27,7 +27,7 @@ protocol JSONDecodable {
 }
 
 protocol Endpoint {
-    var baseURL: String { get }
+    var baseURL: URL { get }
     var path: String { get }
     var request: URLRequest { get }
 }
@@ -36,7 +36,7 @@ protocol APIClient {
     var configuration: URLSessionConfiguration { get }
     var session: URLSession { get }
     
-    init(configuration: URLSessionConfiguration, APIKey: String)
+    init(configuration: URLSessionConfiguration)
 }
 
 extension APIClient {
