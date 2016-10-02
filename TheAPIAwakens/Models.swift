@@ -82,3 +82,18 @@ extension Starship: JSONDecodable {
         crew = JSON["crew"] as? String
     }
 }
+
+// MARK: Planets
+
+struct Planet {
+    
+    let name: String?
+}
+
+extension Planet: JSONDecodable {
+    
+    init?(JSON: [String : AnyObject]) {
+        name = JSON["name"] as? String
+    }
+    
+}

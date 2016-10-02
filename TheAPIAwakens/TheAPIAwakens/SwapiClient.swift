@@ -103,33 +103,25 @@ final class SwapiClient: APIClient {
             
             }, completion: completion)
     }
+    
+    // MARK: Fetch Home
+    
+    func fetchCharacterHome(_ character: Character, completion: @escaping(APIResult<Planet>) -> Void) {
+        
+        if let url = character.homeURL {
+            let url = URL(string: url)!
+            let request = URLRequest(url: url)
+            
+            fetch(request, parse: { json -> Planet? in
+                
+                if let planet = json["results"] as? [String : AnyObject] {
+                    return Planet(JSON: planet)
+                } else {
+                    return nil
+                }
+                
+            }, completion: completion)
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
