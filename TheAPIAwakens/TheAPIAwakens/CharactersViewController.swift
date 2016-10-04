@@ -40,26 +40,6 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     //didReceiveMemoryWarning is not the method you want to set up your views with. ;-)
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
-        //This doesn't belong here. ;-)
-        
-        
-        
-        // SwapiClient
-//        swapiClient.fetchCharacters { (result) in
-//            switch result {
-//            case .success(let characters):
-//                self.charactersArray = characters
-//                print(self.charactersArray)
-//                self.characterPicker.reloadAllComponents()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//        
-//        // PickerView
-//        characterPicker.delegate = self
-//        characterPicker.dataSource = self
     }
     
     // MARK: PickerView
@@ -84,7 +64,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let character = characters[row]
             return character.name
         } else {
-            return "Hello world"
+            return "Awaiting character arrival"
         }
     
     }
