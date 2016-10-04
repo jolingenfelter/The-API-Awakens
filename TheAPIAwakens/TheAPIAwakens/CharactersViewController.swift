@@ -18,12 +18,6 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
         
         // SwapiClient
         swapiClient.fetchCharacters { (result) in
@@ -31,6 +25,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
             case .success(let characters):
                 self.charactersArray = characters
                 print(self.charactersArray)
+                self.characterPicker.reloadAllComponents()
             case .failure(let error):
                 print(error)
             }
@@ -39,21 +34,48 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // PickerView
         characterPicker.delegate = self
         characterPicker.dataSource = self
-        self.characterPicker.reloadAllComponents()
+
+    }
+    
+    //didReceiveMemoryWarning is not the method you want to set up your views with. ;-)
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+
+        //This doesn't belong here. ;-)
+        
+        
+        
+        // SwapiClient
+//        swapiClient.fetchCharacters { (result) in
+//            switch result {
+//            case .success(let characters):
+//                self.charactersArray = characters
+//                print(self.charactersArray)
+//                self.characterPicker.reloadAllComponents()
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//        
+//        // PickerView
+//        characterPicker.delegate = self
+//        characterPicker.dataSource = self
     }
     
     // MARK: PickerView
     
+    //numberOfComponents only needs to return 1 because you only need the picker to display one category of data
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    //numberOfRows is the method you need to set up to display the data. Kinda like in a UITableView
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if let characters = charactersArray {
             return characters.count
         } else {
             return 1
         }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
