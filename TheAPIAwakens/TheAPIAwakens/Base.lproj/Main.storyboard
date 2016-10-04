@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zhQ-X6-Ynq">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -23,6 +23,9 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3A-Xj-dHL">
                                         <state key="normal" image="icon-characters"/>
+                                        <connections>
+                                            <segue destination="hba-Ik-m4K" kind="show" id="iF6-ff-vo9"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pni-gJ-gVq">
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
@@ -86,8 +89,61 @@
                             <constraint firstItem="EuZ-ym-yub" firstAttribute="top" secondItem="32b-jk-W4x" secondAttribute="bottom" constant="30" id="wkg-hZ-0Dw"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="xgj-s4-dTb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="972" y="37.331334332833585"/>
+        </scene>
+        <!--Characters View Controller-->
+        <scene sceneID="AN4-uv-IIi">
+            <objects>
+                <viewController id="hba-Ik-m4K" customClass="CharactersViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="adf-ca-oMj"/>
+                        <viewControllerLayoutGuide type="bottom" id="4QJ-vb-bty"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b08-ax-OQu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62J-fk-R4e">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="4gq-ke-Jdb"/>
+                                </constraints>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="62J-fk-R4e" firstAttribute="leading" secondItem="b08-ax-OQu" secondAttribute="leading" id="3Bb-XB-iu4"/>
+                            <constraint firstAttribute="trailing" secondItem="62J-fk-R4e" secondAttribute="trailing" id="6ix-ER-HfE"/>
+                            <constraint firstItem="4QJ-vb-bty" firstAttribute="top" secondItem="62J-fk-R4e" secondAttribute="bottom" id="BYq-Sg-1bS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="characterPicker" destination="62J-fk-R4e" id="6v0-tF-9vx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ny-iS-cA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1756" y="-636.4317841079461"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UmB-V1-gaA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zhQ-X6-Ynq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="otw-Tt-i3E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="lIk-iO-we1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Phy-OF-zMK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="37.331334332833585"/>
         </scene>
