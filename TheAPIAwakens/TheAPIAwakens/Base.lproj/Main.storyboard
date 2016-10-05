@@ -95,10 +95,10 @@
             </objects>
             <point key="canvasLocation" x="972" y="37.331334332833585"/>
         </scene>
-        <!--View Controller Model-->
+        <!--Characters View Controller-->
         <scene sceneID="AN4-uv-IIi">
             <objects>
-                <viewController id="hba-Ik-m4K" customClass="ViewControllerModel" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hba-Ik-m4K" customClass="CharactersViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="adf-ca-oMj"/>
                         <viewControllerLayoutGuide type="bottom" id="4QJ-vb-bty"/>
@@ -361,7 +361,24 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="CreditsButton" destination="gRY-61-GVe" id="ayY-Ii-FX7"/>
+                        <outlet property="EnglishButton" destination="ssg-Rh-7hs" id="vXV-al-VxO"/>
+                        <outlet property="MetricButton" destination="mAi-fV-oaa" id="MpD-4d-ZQn"/>
+                        <outlet property="USDButton" destination="grM-T6-SzH" id="iaB-0T-EyS"/>
                         <outlet property="characterPicker" destination="62J-fk-R4e" id="6v0-tF-9vx"/>
+                        <outlet property="data1Label" destination="XqF-qe-mhe" id="8k7-Bu-2MN"/>
+                        <outlet property="data2Label" destination="DyF-fq-ySb" id="KhN-Pu-LlO"/>
+                        <outlet property="data3Label" destination="Rwo-BW-kAv" id="Y34-jc-f0f"/>
+                        <outlet property="data4Label" destination="dC8-6z-mzr" id="5a2-Il-fuF"/>
+                        <outlet property="data5Label" destination="Yqa-g6-Ki4" id="fC7-BY-FMW"/>
+                        <outlet property="info1Label" destination="bmd-4i-diC" id="oTL-Sy-AWe"/>
+                        <outlet property="info2Label" destination="ShK-ww-IDo" id="b1g-ug-5my"/>
+                        <outlet property="info3Label" destination="Zoo-og-4Tq" id="wQ7-4H-zHd"/>
+                        <outlet property="info4Label" destination="RlB-9Q-dED" id="BcM-8e-JjV"/>
+                        <outlet property="info5Label" destination="I0F-0A-clU" id="3Xn-IJ-fkV"/>
+                        <outlet property="largestObjectLabel" destination="9zd-LZ-UXh" id="ceC-Kz-Ow2"/>
+                        <outlet property="nameLabel" destination="dM8-zw-6W2" id="24o-mV-fF4"/>
+                        <outlet property="smallestObjectLabel" destination="rQK-Fp-LVy" id="vFY-8o-6Vs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ny-iS-cA5" userLabel="First Responder" sceneMemberID="firstResponder"/>

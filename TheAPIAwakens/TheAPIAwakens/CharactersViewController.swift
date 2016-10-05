@@ -10,14 +10,64 @@ import UIKit
 
 class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    // Outlets
     @IBOutlet weak var characterPicker: UIPickerView!
+    @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var data1Label: UILabel!
+    @IBOutlet weak var data2Label: UILabel!
+    @IBOutlet weak var data3Label: UILabel!
+    @IBOutlet weak var data4Label: UILabel!
+    @IBOutlet weak var data5Label: UILabel!
+    
+    @IBOutlet weak var info1Label: UILabel!
+    @IBOutlet weak var info2Label: UILabel!
+    @IBOutlet weak var info3Label: UILabel!
+    @IBOutlet weak var info4Label: UILabel!
+    @IBOutlet weak var info5Label: UILabel!
+    
+    @IBOutlet weak var smallestObjectLabel: UILabel!
+    @IBOutlet weak var largestObjectLabel: UILabel!
+    
+    @IBOutlet weak var USDButton: UIButton!
+    @IBOutlet weak var CreditsButton: UIButton!
+    @IBOutlet weak var EnglishButton: UIButton!
+    @IBOutlet weak var MetricButton: UIButton!
+
+    
+    // Variables
     var charactersArray: [Character]?
     let swapiClient = SwapiClient()
     var selectedCharacter: Character?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
+        setupCharacterPicker()
+        buttonsSetup()
+
+    }
+    
+    func setupNavigationBar() {
+        self.title = "Characters"
+        
+        let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(ViewControllerModel.backPressed))
+        self.navigationItem.leftBarButtonItem = backButton
+    }
+    
+    func backPressed() {
+        if let navigationController = self.navigationController {
+            navigationController.popToRootViewController(animated: true)
+        }
+    }
+    
+    func buttonsSetup() {
+        USDButton.isHidden = true
+        CreditsButton.isHidden = true
+    }
+
+    
+    func setupCharacterPicker() {
         
         // SwapiClient
         swapiClient.fetchCharacters { (result) in
@@ -34,7 +84,6 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // PickerView
         characterPicker.delegate = self
         characterPicker.dataSource = self
-
     }
     
     //didReceiveMemoryWarning is not the method you want to set up your views with. ;-)
@@ -42,14 +91,12 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: PickerView
+    // MARK: PickerViewDelegate
     
-    //numberOfComponents only needs to return 1 because you only need the picker to display one category of data
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    //numberOfRows is the method you need to set up to display the data. Kinda like in a UITableView
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if let characters = charactersArray {
             return characters.count
