@@ -38,20 +38,25 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // Variables
     var charactersArray: [Character]?
     let swapiClient = SwapiClient()
-    var selectedCharacter: Character?
+    var selectedCharacter: Character? {
+        didSet {
+            self.updateLabelsFor(selectedCharacter!)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupCharacterPicker()
         buttonsSetup()
+        setupDataLabels()
 
     }
     
     func setupNavigationBar() {
         self.title = "Characters"
         
-        let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(ViewControllerModel.backPressed))
+        let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(CharactersViewController.backPressed))
         self.navigationItem.leftBarButtonItem = backButton
     }
     
@@ -65,6 +70,14 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         USDButton.isHidden = true
         CreditsButton.isHidden = true
     }
+    
+    func setupDataLabels() {
+        data1Label.text = "Born"
+        data2Label.text = "Home"
+        data3Label.text = "Height"
+        data4Label.text = "Eyes"
+        data5Label.text = "Hair"
+    }
 
     
     func setupCharacterPicker() {
@@ -74,8 +87,18 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
             switch result {
             case .success(let characters):
                 self.charactersArray = characters
-                print(self.charactersArray)
+                
+                self.smallestObjectLabel.text = self.smallestAndLargest(characters).smallest.name
+                self.largestObjectLabel.text = self.smallestAndLargest(characters).largest.name
+                
+                self.characterPicker.selectRow(0, inComponent: 0, animated: true)
+                
+                self.selectedCharacter = characters[self.characterPicker.selectedRow(inComponent: 0)]
+                
+                self.fetchCharacterHome(self.selectedCharacter!)
+                
                 self.characterPicker.reloadAllComponents()
+            
             case .failure(let error):
                 print(error)
             }
@@ -84,6 +107,28 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // PickerView
         characterPicker.delegate = self
         characterPicker.dataSource = self
+    }
+    
+    func fetchCharacterHome(_ character: Character) {
+        self.swapiClient.fetchCharacterHome(character) { result in
+            
+            switch result {
+                case .success(let home):
+                    self.info2Label.text = home.name
+                case .failure(let error):
+                    print(error)
+                    self.info2Label.text = "Unavailable"
+            }
+        }
+    }
+    
+    func updateLabelsFor(_ character: Character) {
+        self.nameLabel.text = selectedCharacter?.name
+        self.info1Label.text = selectedCharacter?.yearOfBirth
+        fetchCharacterHome(selectedCharacter!)
+        self.info3Label.text = selectedCharacter?.heightString
+        self.info4Label.text = selectedCharacter?.eyeColor
+        self.info5Label.text = selectedCharacter?.hairColor
     }
     
     //didReceiveMemoryWarning is not the method you want to set up your views with. ;-)
@@ -123,5 +168,25 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    // English and Metric Conversions
+    
+    func englishToMetric() {
+        
+    }
+    
+    func metricToEnglish() {
+        
+    }
+    
+    // Smallest and Largest Characters
+    
+    func smallestAndLargest(_ characters: [Character]) -> (smallest: Character, largest: Character) {
+        
+        let sortedCharacters = characters.sorted { $0.heightInt! < $1.heightInt! }
+        
+        return (sortedCharacters.first!, sortedCharacters.last!)
+    }
+
+
 
 }

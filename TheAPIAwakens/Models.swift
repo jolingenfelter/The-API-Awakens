@@ -14,10 +14,12 @@ struct Character {
     
     let name: String?
     let yearOfBirth: String?
-    let height: String?
+    let heightString: String?
     let eyeColor: String?
     let hairColor: String?
     let homeURL: String?
+    
+    let heightInt: Int?
     
 }
 
@@ -26,11 +28,17 @@ extension Character: JSONDecodable {
     init?(JSON: [String : AnyObject]) {
         name = JSON["name"] as? String
         yearOfBirth = JSON["birth_year"] as? String
-        height = JSON["height"] as? String
+        heightString = JSON["height"] as? String
         eyeColor = JSON["eye_color"] as? String
         hairColor = JSON["hair_color"] as? String
         homeURL = JSON["homeworld"] as? String
+        
+        if let characterHeight = self.heightString {
+            self.heightInt = Int(characterHeight)
+        } else {
+            self.heightInt = 0
         }
+    }
 }
 
 // MARK: Vehicles
@@ -39,10 +47,13 @@ struct Vehicle {
     
     let name: String?
     let make: String?
-    let cost: String?
-    let length: String?
+    let costString: String?
+    let lengthString: String?
     let vehicleClass: String?
     let crew: String?
+    
+    let lengthInt: Int?
+    let costInt: Int?
     
 }
 
@@ -51,12 +62,23 @@ extension Vehicle: JSONDecodable {
     init?(JSON: [String : AnyObject]) {
         name = JSON["name"] as? String
         make = JSON["model"] as? String
-        cost = JSON["cost_in_credits"] as? String
-        length = JSON["length"] as? String
+        costString = JSON["cost_in_credits"] as? String
+        lengthString = JSON["length"] as? String
         vehicleClass = JSON["vehicle_class"] as? String
         crew = JSON["crew"] as? String
+        
+        if let vehicleLength = self.lengthString {
+            self.lengthInt = Int(vehicleLength)
+        } else {
+            self.lengthInt = 0
+        }
+        
+        if let vehicleCost = self.costString {
+            self.costInt = Int(vehicleCost)
+        } else {
+            self.costInt = 0
+        }
     }
-    
 }
 
 // MARK: Starships
@@ -65,10 +87,13 @@ extension Vehicle: JSONDecodable {
 struct Starship {
     
     let name: String?
-    let cost: String?
-    let length: String?
+    let costString: String?
+    let lengthString: String?
     let starshipClass: String?
     let crew: String?
+    
+    let costInt: Int?
+    let lengthInt: Int?
     
 }
 
@@ -76,10 +101,22 @@ extension Starship: JSONDecodable {
     
     init?(JSON: [String : AnyObject]) {
         name = JSON["name"] as? String
-        cost = JSON["cost_in_credits"] as? String
-        length = JSON["length"] as? String
+        costString = JSON["cost_in_credits"] as? String
+        lengthString = JSON["length"] as? String
         starshipClass = JSON["starship_class"] as? String
         crew = JSON["crew"] as? String
+        
+        if let starshipLength = self.lengthString {
+            self.lengthInt = Int(starshipLength)
+        } else {
+            self.lengthInt = 0
+        }
+        
+        if let starshipCost = self.costString {
+            self.costInt = Int(starshipCost)
+        } else {
+            self.costInt = 0
+        }
     }
 }
 

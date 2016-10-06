@@ -114,11 +114,7 @@ final class SwapiClient: APIClient {
             
             fetch(request, parse: { json -> Planet? in
                 
-                if let planet = json["results"] as? [String : AnyObject] {
-                    return Planet(JSON: planet)
-                } else {
-                    return nil
-                }
+                return Planet(JSON: json)
                 
             }, completion: completion)
         }
