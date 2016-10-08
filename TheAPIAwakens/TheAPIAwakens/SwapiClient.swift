@@ -122,17 +122,23 @@ final class SwapiClient: APIClient {
 
     // MARK: Fetch Vehicles for character
 
-func fetchCharacterVehicles(_ character: Character, completion: @escaping(APIResult<Vehicle>) -> Void) {
+func fetchCharacterVehicles(_ character: Character, completion: @escaping(APIResult<[Vehicle]>) -> Void) {
+   
+    var vehiclesArray = [Vehicle]()
+
     
     if let vehicleURLArray = character.vehicles {
         for vehicleURL in vehicleURLArray {
             let url = URL(string: vehicleURL)!
             let request = URLRequest(url: url)
-            
-            fetch(request, parse: { json -> Vehicle? in
+
+            fetch(request, parse: { json -> [Vehicle]? in
                 
-                return Vehicle(JSON: json)
-                
+                let vehicle = Vehicle(JSON: json)
+                if let vehicle = vehicle {
+                    vehiclesArray.append(vehicle)
+                }
+                return vehiclesArray
                 
                 }, completion: completion)
             

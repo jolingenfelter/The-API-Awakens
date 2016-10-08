@@ -20,7 +20,6 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var data4Label: UILabel!
     @IBOutlet weak var data5Label: UILabel!
     @IBOutlet weak var data6Label: UILabel!
-    @IBOutlet weak var data7Label: UILabel!
     
     @IBOutlet weak var info1Label: UILabel!
     @IBOutlet weak var info2Label: UILabel!
@@ -28,7 +27,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var info4Label: UILabel!
     @IBOutlet weak var info5Label: UILabel!
     @IBOutlet weak var info6Label: UILabel!
-    @IBOutlet weak var info7Label: UILabel!
+
     
     @IBOutlet weak var smallestObjectLabel: UILabel!
     @IBOutlet weak var largestObjectLabel: UILabel!
@@ -40,6 +39,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     
     // Variables
+    let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
     var charactersArray: [Character]?
     let swapiClient = SwapiClient()
     var selectedCharacter: Character? {
@@ -73,6 +73,9 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func buttonsSetup() {
         USDButton.isHidden = true
         CreditsButton.isHidden = true
+        
+        EnglishButton.addTarget(self, action: #selector(CharactersViewController.metricToEnglish), for: .touchUpInside)
+        MetricButton.addTarget(self, action: #selector(CharactersViewController.englishToMetric), for: .touchUpInside)
     }
     
     func setupDataLabels() {
@@ -81,6 +84,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         data3Label.text = "Height"
         data4Label.text = "Eyes"
         data5Label.text = "Hair"
+        data6Label.text = "Vehicles"
     }
 
     
@@ -133,7 +137,15 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
          
             switch result {
             case .success(let vehicles):
-                    print(vehicles.name)
+                var vehicleNamesArray = [String]()
+                for vehicle in vehicles {
+                    if let vehicleName = vehicle.name {
+                        vehicleNamesArray.append(vehicleName)
+                    }
+                }
+                
+                self.info6Label.text = "\(vehicleNamesArray.joined(separator: ", "))"
+                
             case .failure(let error):
                 print(error)
             }
@@ -145,12 +157,18 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.info1Label.text = selectedCharacter?.yearOfBirth
         fetchCharacterHome(selectedCharacter!)
         fetchVehiclesForCharacter(selectedCharacter!)
-        self.info3Label.text = selectedCharacter?.heightString
         self.info4Label.text = selectedCharacter?.eyeColor
         self.info5Label.text = selectedCharacter?.hairColor
+        
+        self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
+        self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
+        
+        if let characterHeight = selectedCharacter?.heightDouble {
+            self.info3Label.text = "\(characterHeight) cm"
+        }
+        
     }
     
-    //didReceiveMemoryWarning is not the method you want to set up your views with. ;-)
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -181,6 +199,9 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        info6Label.text = ""
+        
         if let characters = charactersArray {
             let character = characters[row]
             selectedCharacter = character
@@ -190,10 +211,22 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // English and Metric Conversions
     
     func englishToMetric() {
+        EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
+        MetricButton.setTitleColor(UIColor.white, for: UIControlState())
         
+        if let characterHeight = selectedCharacter?.heightDouble {
+            info3Label.text = "\(characterHeight) cm"
+        }
     }
     
     func metricToEnglish() {
+        MetricButton.setTitleColor(unselectedColor, for: UIControlState())
+        EnglishButton.setTitleColor(UIColor.white, for: UIControlState())
+        
+        if let characterHeight = selectedCharacter?.heightDouble {
+            let englishHeight = characterHeight * 0.328084
+            info3Label.text = "\(englishHeight) ft"
+        }
         
     }
     
@@ -201,7 +234,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func smallestAndLargest(_ characters: [Character]) -> (smallest: Character, largest: Character) {
         
-        let sortedCharacters = characters.sorted { $0.heightInt! < $1.heightInt! }
+        let sortedCharacters = characters.sorted { $0.heightDouble! < $1.heightDouble! }
         
         return (sortedCharacters.first!, sortedCharacters.last!)
     }

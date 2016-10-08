@@ -20,7 +20,7 @@ struct Character {
     let homeURL: String?
     let vehicles: [String]?
     
-    let heightInt: Int?
+    let heightDouble: Double?
     
 }
 
@@ -36,9 +36,9 @@ extension Character: JSONDecodable {
         vehicles = JSON["vehicles"] as? [String]
         
         if let characterHeight = self.heightString {
-            self.heightInt = Int(characterHeight)
+            self.heightDouble = Double(characterHeight)
         } else {
-            self.heightInt = 0
+            self.heightDouble = 0
         }
     }
 }
@@ -54,8 +54,8 @@ struct Vehicle {
     let vehicleClass: String?
     let crew: String?
     
-    let lengthInt: Int?
-    let costInt: Int?
+    let lengthDouble: Double?
+    let costDouble: Double?
     
 }
 
@@ -70,15 +70,15 @@ extension Vehicle: JSONDecodable {
         crew = JSON["crew"] as? String
         
         if let vehicleLength = self.lengthString {
-            self.lengthInt = Int(vehicleLength)
+            self.lengthDouble = Double(vehicleLength)
         } else {
-            self.lengthInt = 0
+            self.lengthDouble = 0
         }
         
         if let vehicleCost = self.costString {
-            self.costInt = Int(vehicleCost)
+            self.costDouble = Double(vehicleCost)
         } else {
-            self.costInt = 0
+            self.costDouble = 0
         }
     }
 }
@@ -94,8 +94,8 @@ struct Starship {
     let starshipClass: String?
     let crew: String?
     
-    let costInt: Int?
-    let lengthInt: Int?
+    let costDouble: Double?
+    let lengthDouble: Double?
     
 }
 
@@ -109,15 +109,15 @@ extension Starship: JSONDecodable {
         crew = JSON["crew"] as? String
         
         if let starshipLength = self.lengthString {
-            self.lengthInt = Int(starshipLength)
+            self.lengthDouble = Double(starshipLength)
         } else {
-            self.lengthInt = 0
+            self.lengthDouble = 0
         }
         
         if let starshipCost = self.costString {
-            self.costInt = Int(starshipCost)
+            self.costDouble = Double(starshipCost)
         } else {
-            self.costInt = 0
+            self.costDouble = 0
         }
     }
 }
