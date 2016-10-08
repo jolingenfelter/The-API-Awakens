@@ -19,12 +19,16 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var data3Label: UILabel!
     @IBOutlet weak var data4Label: UILabel!
     @IBOutlet weak var data5Label: UILabel!
+    @IBOutlet weak var data6Label: UILabel!
+    @IBOutlet weak var data7Label: UILabel!
     
     @IBOutlet weak var info1Label: UILabel!
     @IBOutlet weak var info2Label: UILabel!
     @IBOutlet weak var info3Label: UILabel!
     @IBOutlet weak var info4Label: UILabel!
     @IBOutlet weak var info5Label: UILabel!
+    @IBOutlet weak var info6Label: UILabel!
+    @IBOutlet weak var info7Label: UILabel!
     
     @IBOutlet weak var smallestObjectLabel: UILabel!
     @IBOutlet weak var largestObjectLabel: UILabel!
@@ -97,6 +101,8 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 
                 self.fetchCharacterHome(self.selectedCharacter!)
                 
+                self.fetchVehiclesForCharacter(self.selectedCharacter!)
+                
                 self.characterPicker.reloadAllComponents()
             
             case .failure(let error):
@@ -122,10 +128,23 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    func fetchVehiclesForCharacter(_ character: Character) {
+        self.swapiClient.fetchCharacterVehicles(character) { result in
+         
+            switch result {
+            case .success(let vehicles):
+                    print(vehicles.name)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func updateLabelsFor(_ character: Character) {
         self.nameLabel.text = selectedCharacter?.name
         self.info1Label.text = selectedCharacter?.yearOfBirth
         fetchCharacterHome(selectedCharacter!)
+        fetchVehiclesForCharacter(selectedCharacter!)
         self.info3Label.text = selectedCharacter?.heightString
         self.info4Label.text = selectedCharacter?.eyeColor
         self.info5Label.text = selectedCharacter?.hairColor

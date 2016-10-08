@@ -18,6 +18,7 @@ struct Character {
     let eyeColor: String?
     let hairColor: String?
     let homeURL: String?
+    let vehicles: [String]?
     
     let heightInt: Int?
     
@@ -32,6 +33,7 @@ extension Character: JSONDecodable {
         eyeColor = JSON["eye_color"] as? String
         hairColor = JSON["hair_color"] as? String
         homeURL = JSON["homeworld"] as? String
+        vehicles = JSON["vehicles"] as? [String]
         
         if let characterHeight = self.heightString {
             self.heightInt = Int(characterHeight)

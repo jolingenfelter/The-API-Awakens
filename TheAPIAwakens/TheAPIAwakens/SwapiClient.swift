@@ -119,5 +119,24 @@ final class SwapiClient: APIClient {
             }, completion: completion)
         }
     }
-}
 
+    // MARK: Fetch Vehicles for character
+
+func fetchCharacterVehicles(_ character: Character, completion: @escaping(APIResult<Vehicle>) -> Void) {
+    
+    if let vehicleURLArray = character.vehicles {
+        for vehicleURL in vehicleURLArray {
+            let url = URL(string: vehicleURL)!
+            let request = URLRequest(url: url)
+            
+            fetch(request, parse: { json -> Vehicle? in
+                
+                return Vehicle(JSON: json)
+                
+                
+                }, completion: completion)
+            
+            }
+        }
+    }
+}
