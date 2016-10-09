@@ -250,6 +250,10 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return
         }
         
+        if exchangeRateDouble < 0 {
+            presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be greater than zero")
+        }
+        
         if let vehicleCost = selectedVehicle?.costDouble {
             hasExchangeRate = true
             let USDCost = vehicleCost * exchangeRateDouble

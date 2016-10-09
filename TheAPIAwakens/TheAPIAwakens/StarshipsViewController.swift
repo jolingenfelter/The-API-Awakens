@@ -261,6 +261,10 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             return
         }
         
+        if exchangeRateDouble < 0 {
+            presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be greater than zero")
+        }
+        
         if let starshipCost = selectedStarship?.costDouble {
             hasExchangeRate = true
             let USDCost = starshipCost * exchangeRateDouble
