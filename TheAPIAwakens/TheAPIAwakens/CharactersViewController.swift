@@ -54,7 +54,6 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         setupCharacterPicker()
         buttonsSetup()
         setupDataLabels()
-
     }
     
     func setupNavigationBar() {
@@ -154,15 +153,32 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func updateLabelsFor(_ character: Character) {
         self.nameLabel.text = selectedCharacter?.name
-        self.info1Label.text = selectedCharacter?.yearOfBirth
+        
+        if let yearOfBirth = selectedCharacter?.yearOfBirth {
+            self.info1Label.text = yearOfBirth
+        } else {
+            info1Label.text = "unknown"
+        }
+        
         fetchCharacterHome(selectedCharacter!)
-        fetchVehiclesForCharacter(selectedCharacter!)
-        self.info4Label.text = selectedCharacter?.eyeColor
-        self.info5Label.text = selectedCharacter?.hairColor
         
         if let characterHeight = selectedCharacter?.heightDouble {
             self.info3Label.text = "\(characterHeight) cm"
         }
+        
+        if let eyeColor = selectedCharacter?.eyeColor {
+            info4Label.text = eyeColor
+        } else {
+            info4Label.text = "unknown"
+        }
+        
+        if let hairColor = selectedCharacter?.hairColor {
+            info5Label.text = hairColor
+        } else {
+            info5Label.text = "unknown"
+        }
+        
+        fetchVehiclesForCharacter(selectedCharacter!)
         
         // Conversion Buttons Color
         self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
@@ -234,7 +250,13 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // MARK: Smallest and Largest Characters
     
     func smallestAndLargest(_ characters: [Character]) -> (smallest: Character, largest: Character) {
-        let sortedCharacters = characters.sorted { $0.heightDouble! < $1.heightDouble! }
+        var charactersWithHeight = [Character]()
+        for character in characters {
+            if character.heightDouble != nil {
+                charactersWithHeight.append(character)
+            }
+        }
+        let sortedCharacters = charactersWithHeight.sorted { $0.heightDouble! < $1.heightDouble! }
         return (sortedCharacters.first!, sortedCharacters.last!)
     }
 }

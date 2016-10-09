@@ -89,6 +89,7 @@ extension Vehicle: JSONDecodable {
 struct Starship {
     
     let name: String?
+    let model: String?
     let costString: String?
     let lengthString: String?
     let starshipClass: String?
@@ -103,6 +104,7 @@ extension Starship: JSONDecodable {
     
     init?(JSON: [String : AnyObject]) {
         name = JSON["name"] as? String
+        model = JSON["model"] as? String
         costString = JSON["cost_in_credits"] as? String
         lengthString = JSON["length"] as? String
         starshipClass = JSON["starship_class"] as? String

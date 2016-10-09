@@ -1,5 +1,5 @@
 //
-//  VehiclesViewController.swift
+//  StarshipsViewController.swift
 //  TheAPIAwakens
 //
 //  Created by Joanna Lingenfelter on 10/8/16.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // Outlets
-    @IBOutlet weak var vehiclePicker: UIPickerView!
+    @IBOutlet weak var starshipPicker: UIPickerView!
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var data1Label: UILabel!
@@ -19,7 +19,7 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var data3Label: UILabel!
     @IBOutlet weak var data4Label: UILabel!
     @IBOutlet weak var data5Label: UILabel!
- 
+    
     @IBOutlet weak var info1Label: UILabel!
     @IBOutlet weak var info2Label: UILabel!
     @IBOutlet weak var info3Label: UILabel!
@@ -37,24 +37,25 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     // Variables
     let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
-    var vehiclesArray: [Vehicle]?
+    var starshipsArray: [Starship]?
     let swapiClient = SwapiClient()
-    var selectedVehicle: Vehicle? {
+    var selectedStarship: Starship? {
         didSet {
-            self.updateLabelsFor(selectedVehicle!)
+            self.updateLabelsFor(selectedStarship!)
         }
     }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         buttonsSetup()
         setupDataLabels()
-        setupVehiclePicker()
+        setupStarshipPicker()
     }
     
     func setupNavigationBar() {
-        self.title = "Vehicles"
+        self.title = "Starships"
         
         let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(CharactersViewController.backPressed))
         self.navigationItem.leftBarButtonItem = backButton
@@ -69,7 +70,7 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     func buttonsSetup() {
         EnglishButton.addTarget(self, action: #selector(CharactersViewController.metricToEnglish), for: .touchUpInside)
         MetricButton.addTarget(self, action: #selector(CharactersViewController.englishToMetric), for: .touchUpInside)
-
+        
     }
     
     func setupDataLabels() {
@@ -80,72 +81,74 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         data5Label.text = "Crew"
     }
     
-    func setupVehiclePicker() {
+    func setupStarshipPicker() {
         
         // SwapiClient
-        swapiClient.fetchVehicles { result in
+        swapiClient.fetchStarships { result in
             switch result {
-                case .success(let vehicles):
-                    self.vehiclesArray = vehicles
-                    
-                    self.smallestObjectLabel.text = self.smallestAndLargest(vehicles).smallest.name
-                    self.largestObjectLabel.text = self.smallestAndLargest(vehicles).largest.name
+                case .success(let starships):
+                    self.starshipsArray = starships
                 
-                    self.vehiclePicker.selectRow(0, inComponent: 0, animated: true)
+                    self.smallestObjectLabel.text = self.smallestAndLargest(starships).smallest.name
+                    self.largestObjectLabel.text = self.smallestAndLargest(starships).largest.name
                 
-                    self.selectedVehicle = vehicles[self.vehiclePicker.selectedRow(inComponent: 0)]
+                    self.starshipPicker.selectRow(0, inComponent: 0, animated: true)
                 
-                    self.vehiclePicker.reloadAllComponents()
+                    self.selectedStarship = starships[self.starshipPicker.selectedRow(inComponent: 0)]
                 
-            case .failure(let error):
-                print(error)
+                    self.starshipPicker.reloadAllComponents()
+                
+                case .failure(let error):
+                    print(error)
+                
             }
         }
         
-        // PickerView 
-        vehiclePicker.dataSource = self
-        vehiclePicker.delegate = self
-        
+        // PickerView
+        starshipPicker.delegate = self
+        starshipPicker.dataSource = self
     }
     
-    func updateLabelsFor(_ vehicle: Vehicle) {
-        self.nameLabel.text = selectedVehicle?.name
+    func updateLabelsFor(_ starship: Starship) {
         
-        if let make = selectedVehicle?.make {
-            info1Label.text = make
+        self.nameLabel.text = selectedStarship?.name
+        
+        if let model = selectedStarship?.model {
+            info1Label.text = model
         } else {
             info1Label.text = "N/a"
         }
         
-        if let vehicleCost = selectedVehicle?.costDouble {
-            self.info2Label.text = "\(vehicleCost) credits"
+        if let starshipCost = selectedStarship?.costDouble {
+            self.info2Label.text = "\(starshipCost) credits"
         } else {
-            info2Label.text = "N/a"
+            self.info2Label.text = "N/a"
         }
         
-        if let vehicleLength = selectedVehicle?.lengthDouble {
-            self.info3Label.text = "\(vehicleLength) cm"
+        if let starshipLength = selectedStarship?.lengthDouble {
+            self.info3Label.text = "\(starshipLength) m"
         } else {
-            info3Label.text = "N/a"
+            self.info3Label.text = "N/a"
         }
         
-        if let vehicleClass = selectedVehicle?.vehicleClass {
-            info4Label.text = vehicleClass
+        if let starshipClass = selectedStarship?.starshipClass {
+            info4Label.text = starshipClass
         } else {
             info4Label.text = "N/a"
         }
-       
-        if let crew = selectedVehicle?.crew {
+    
+        if let crew = selectedStarship?.crew {
             info5Label.text = crew
         } else {
             info5Label.text = "N/a"
         }
         
-        // Conversion Buttons Color 
+        // Conversion Buttons Color
         self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
         self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
         self.USDButton.setTitleColor(unselectedColor, for: UIControlState())
         self.CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        
     }
 
 
@@ -154,35 +157,37 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: PickerViewDelegate
+    // MARK: UIPickerView Delegate
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let vehicles = vehiclesArray {
-            return vehicles.count
+        if let starships = starshipsArray {
+            return starships.count
         } else {
             return 1
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let vehicles = vehiclesArray {
-            let vehicle = vehicles[row]
-            return vehicle.name
+        if let starships = starshipsArray {
+            let starship = starships[row]
+            return starship.name
         } else {
-            return "Awaiting vehicle arrival"
+            return ("Awaiting starship arrival")
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if let vehicles = vehiclesArray {
-            let vehicle = vehicles[row]
-            selectedVehicle = vehicle
+        info3Label.text = ""
+        if let starships = starshipsArray {
+            let starship = starships[row]
+            selectedStarship = starship
         }
     }
+    
     
     // MARK: English and Metric Conversions
     
@@ -190,8 +195,8 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
         MetricButton.setTitleColor(UIColor.white, for: UIControlState())
         
-        if let vehicleLength = selectedVehicle?.lengthDouble {
-            info3Label.text = "\(vehicleLength) cm"
+        if let starshipLength = selectedStarship?.lengthDouble {
+            info3Label.text = "\(starshipLength) m"
         }
     }
     
@@ -199,15 +204,24 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         MetricButton.setTitleColor(unselectedColor, for: UIControlState())
         EnglishButton.setTitleColor(UIColor.white, for: UIControlState())
         
-        if let vehicleLength = selectedVehicle?.lengthDouble {
-            let englishLength = vehicleLength * 0.328084
-            info3Label.text = "\(englishLength) ft"
+        if let starshipLength = selectedStarship?.lengthDouble {
+            let englishLength = starshipLength * 1.09361
+            info3Label.text = "\(englishLength) yds"
         }
         
     }
     
-    func smallestAndLargest(_ vehicles: [Vehicle]) -> (smallest: Vehicle, largest: Vehicle) {
-        let sortedVehicles = vehicles.sorted { $0.lengthDouble! < $1.lengthDouble! }
-        return (sortedVehicles.first!, sortedVehicles.last!)
+    func smallestAndLargest(_ starships: [Starship]) -> (smallest: Starship, largest: Starship) {
+        var shipsWithlength = [Starship]()
+        for starship in starships {
+            if starship.lengthDouble != nil {
+                shipsWithlength.append(starship)
+            }
+        }
+        let sortedStarships = shipsWithlength.sorted { $0.lengthDouble! < $1.lengthDouble! }
+        return (sortedStarships.first!, sortedStarships.last!)
     }
+
+    
+
 }
