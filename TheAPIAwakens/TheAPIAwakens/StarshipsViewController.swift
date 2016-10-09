@@ -74,7 +74,7 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     func setupDataLabels() {
-        data1Label.text = "Make"
+        data1Label.text = "Model"
         data2Label.text = "Cost"
         data3Label.text = "Length"
         data4Label.text = "Class"

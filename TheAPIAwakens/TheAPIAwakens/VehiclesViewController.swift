@@ -73,7 +73,7 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func setupDataLabels() {
-        data1Label.text = "Make"
+        data1Label.text = "Model"
         data2Label.text = "Cost"
         data3Label.text = "Length"
         data4Label.text = "Class"
@@ -111,7 +111,7 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     func updateLabelsFor(_ vehicle: Vehicle) {
         self.nameLabel.text = selectedVehicle?.name
         
-        if let make = selectedVehicle?.make {
+        if let make = selectedVehicle?.model {
             info1Label.text = make
         } else {
             info1Label.text = "N/a"
@@ -207,7 +207,13 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func smallestAndLargest(_ vehicles: [Vehicle]) -> (smallest: Vehicle, largest: Vehicle) {
-        let sortedVehicles = vehicles.sorted { $0.lengthDouble! < $1.lengthDouble! }
+        var vehiclesWithLength = [Vehicle]()
+        for vehicle in vehicles {
+            if vehicle.lengthDouble != nil {
+                vehiclesWithLength.append(vehicle)
+            }
+        }
+        let sortedVehicles = vehiclesWithLength.sorted { $0.lengthDouble! < $1.lengthDouble! }
         return (sortedVehicles.first!, sortedVehicles.last!)
     }
 }

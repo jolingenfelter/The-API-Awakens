@@ -48,7 +48,7 @@ extension Character: JSONDecodable {
 struct Vehicle {
     
     let name: String?
-    let make: String?
+    let model: String?
     let costString: String?
     let lengthString: String?
     let vehicleClass: String?
@@ -63,7 +63,7 @@ extension Vehicle: JSONDecodable {
     
     init?(JSON: [String : AnyObject]) {
         name = JSON["name"] as? String
-        make = JSON["model"] as? String
+        model = JSON["model"] as? String
         costString = JSON["cost_in_credits"] as? String
         lengthString = JSON["length"] as? String
         vehicleClass = JSON["vehicle_class"] as? String
