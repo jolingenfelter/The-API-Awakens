@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // Outlets
     @IBOutlet weak var starshipPicker: UIPickerView!
@@ -35,6 +35,8 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var EnglishButton: UIButton!
     @IBOutlet weak var MetricButton: UIButton!
     
+    @IBOutlet weak var exchangeRateTextField: UITextField!
+    
     // Variables
     let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
     var starshipsArray: [Starship]?
@@ -44,6 +46,8 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.updateLabelsFor(selectedStarship!)
         }
     }
+    
+    var hasExchangeRate: Bool = false
 
 
     override func viewDidLoad() {
@@ -52,6 +56,11 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         buttonsSetup()
         setupDataLabels()
         setupStarshipPicker()
+        
+        exchangeRateTextField.delegate = self
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(StarshipsViewController.endTextViewEditing))
+        self.view.addGestureRecognizer(tap)
     }
     
     func setupNavigationBar() {
@@ -68,8 +77,10 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     func buttonsSetup() {
-        EnglishButton.addTarget(self, action: #selector(CharactersViewController.metricToEnglish), for: .touchUpInside)
-        MetricButton.addTarget(self, action: #selector(CharactersViewController.englishToMetric), for: .touchUpInside)
+        EnglishButton.addTarget(self, action: #selector(StarshipsViewController.metricToEnglish), for: .touchUpInside)
+        MetricButton.addTarget(self, action: #selector(StarshipsViewController.englishToMetric), for: .touchUpInside)
+        CreditsButton.addTarget(self, action: #selector(StarshipsViewController.USDToCredits), for: .touchUpInside)
+        USDButton.addTarget(self, action: #selector(StarshipsViewController.CreditsToUSD), for: .touchUpInside)
         
     }
     
@@ -79,6 +90,8 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         data3Label.text = "Length"
         data4Label.text = "Class"
         data5Label.text = "Crew"
+        
+        exchangeRateTextField.placeholder = "Exchange Rate"
     }
     
     func setupStarshipPicker() {
@@ -210,6 +223,73 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
         
     }
+    
+    // MARK: USD and Credits Conversion
+    
+    func USDToCredits() {
+        USDButton.setTitleColor(unselectedColor, for: UIControlState())
+        CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        
+        if let starshipCost = selectedStarship?.costDouble {
+            info2Label.text = "\(starshipCost) credits"
+        }
+    }
+    
+    func CreditsToUSD() {
+        if hasExchangeRate == false {
+            USDButton.setTitleColor(unselectedColor, for: UIControlState())
+            CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        } else if hasExchangeRate == true {
+            USDButton.setTitleColor(UIColor.white, for: UIControlState())
+            CreditsButton.setTitleColor(unselectedColor, for: UIControlState())
+            
+        }
+        
+        validateExchageRate(exchangeRate: exchangeRateTextField.text)
+    }
+    
+    func validateExchageRate(exchangeRate : String?) {
+        if exchangeRate == "" {
+            hasExchangeRate = false
+            presentAlert(title: "Invalid exchange rate", message: "Enter exchange rate")
+        }
+        
+        guard let exchangeRateDouble = Double(exchangeRate!) else {
+            hasExchangeRate = false
+            exchangeRateTextField.text = ""
+            presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be a number")
+            return
+        }
+        
+        if let starshipCost = selectedStarship?.costDouble {
+            hasExchangeRate = true
+            let USDCost = starshipCost * exchangeRateDouble
+            info2Label.text = "$\(USDCost)"
+        }
+    }
+    
+    func presentAlert(title: String, message: String) {
+        let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertView.addAction(action)
+        self.present(alertView, animated: true, completion: nil)
+    }
+    
+    // MARK: TextField Delegate
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if exchangeRateTextField.text == "" {
+            exchangeRateTextField.placeholder = "Exchange rate"
+        }
+        resignFirstResponder()
+    }
+    
+    func endTextViewEditing() {
+        exchangeRateTextField.endEditing(true)
+        view.endEditing(true)
+    }
+    
+    // MARK: Smallest and Largest
     
     func smallestAndLargest(_ starships: [Starship]) -> (smallest: Starship, largest: Starship) {
         var shipsWithlength = [Starship]()

@@ -67,8 +67,8 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func buttonsSetup() {
-        EnglishButton.addTarget(self, action: #selector(CharactersViewController.metricToEnglish), for: .touchUpInside)
-        MetricButton.addTarget(self, action: #selector(CharactersViewController.englishToMetric), for: .touchUpInside)
+        EnglishButton.addTarget(self, action: #selector(VehiclesViewController.metricToEnglish), for: .touchUpInside)
+        MetricButton.addTarget(self, action: #selector(VehiclesViewController.englishToMetric), for: .touchUpInside)
 
     }
     
