@@ -91,7 +91,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setupCharacterPicker() {
         
         // SwapiClient
-        swapiClient.fetchCharacters { (result) in
+        swapiClient.fetchCharacters { result in
             switch result {
             case .success(let characters):
                 self.charactersArray = characters
@@ -160,12 +160,13 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.info4Label.text = selectedCharacter?.eyeColor
         self.info5Label.text = selectedCharacter?.hairColor
         
-        self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
-        
         if let characterHeight = selectedCharacter?.heightDouble {
             self.info3Label.text = "\(characterHeight) cm"
         }
+        
+        // Conversion Buttons Color
+        self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
+        self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
         
     }
     
@@ -208,7 +209,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
-    // English and Metric Conversions
+    // MARK: English and Metric Conversions
     
     func englishToMetric() {
         EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
@@ -230,15 +231,10 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
     }
     
-    // Smallest and Largest Characters
+    // MARK: Smallest and Largest Characters
     
     func smallestAndLargest(_ characters: [Character]) -> (smallest: Character, largest: Character) {
-        
         let sortedCharacters = characters.sorted { $0.heightDouble! < $1.heightDouble! }
-        
         return (sortedCharacters.first!, sortedCharacters.last!)
     }
-
-
-
 }
