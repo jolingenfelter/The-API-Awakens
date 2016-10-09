@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // Outlets
     @IBOutlet weak var vehiclePicker: UIPickerView!
@@ -35,6 +35,8 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var EnglishButton: UIButton!
     @IBOutlet weak var MetricButton: UIButton!
     
+    @IBOutlet weak var exchangeRateTextField: UITextField!
+    
     // Variables
     let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
     var vehiclesArray: [Vehicle]?
@@ -44,6 +46,8 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.updateLabelsFor(selectedVehicle!)
         }
     }
+    
+    var hasExchangeRate: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +55,9 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         buttonsSetup()
         setupDataLabels()
         setupVehiclePicker()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(VehiclesViewController.endTextViewEditing))
+        self.view.addGestureRecognizer(tap)
     }
     
     func setupNavigationBar() {
@@ -205,6 +212,74 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         
     }
+    
+    // MARK: USD and Credits Conversion
+    
+    func USDToCredits() {
+        USDButton.setTitleColor(unselectedColor, for: UIControlState())
+        CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        
+        if let vehicleCost = selectedVehicle?.costDouble {
+            info2Label.text = "\(vehicleCost) credits"
+        }
+    }
+    
+    func CreditsToUSD() {
+        if hasExchangeRate == false {
+            USDButton.setTitleColor(unselectedColor, for: UIControlState())
+            CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        } else if hasExchangeRate == true {
+            USDButton.setTitleColor(UIColor.white, for: UIControlState())
+            CreditsButton.setTitleColor(unselectedColor, for: UIControlState())
+            
+        }
+        
+        validateExchageRate(exchangeRate: exchangeRateTextField.text)
+    }
+    
+    func validateExchageRate(exchangeRate : String?) {
+        if exchangeRate == "" {
+            hasExchangeRate = false
+            presentAlert(title: "Invalid exchange rate", message: "Enter exchange rate")
+        }
+        
+        guard let exchangeRateDouble = Double(exchangeRate!) else {
+            hasExchangeRate = false
+            exchangeRateTextField.text = ""
+            presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be a number")
+            return
+        }
+        
+        if let vehicleCost = selectedVehicle?.costDouble {
+            hasExchangeRate = true
+            let USDCost = vehicleCost * exchangeRateDouble
+            info2Label.text = "$\(USDCost)"
+        }
+    }
+    
+    func presentAlert(title: String, message: String) {
+        let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertView.addAction(action)
+        self.present(alertView, animated: true, completion: nil)
+    }
+
+    
+    // MARK: TextField Delegate
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if exchangeRateTextField.text == "" {
+            exchangeRateTextField.placeholder = "Exchange rate"
+        }
+        resignFirstResponder()
+    }
+    
+    func endTextViewEditing() {
+        exchangeRateTextField.endEditing(true)
+        view.endEditing(true)
+    }
+
+    //MARK: Smallest and Largest
     
     func smallestAndLargest(_ vehicles: [Vehicle]) -> (smallest: Vehicle, largest: Vehicle) {
         var vehiclesWithLength = [Vehicle]()

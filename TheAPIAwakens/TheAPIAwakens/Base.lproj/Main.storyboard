@@ -643,6 +643,15 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TMn-Vn-Yjl">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="9Ge-CN-odd"/>
+                                    <constraint firstAttribute="width" constant="200" id="Ep6-cm-1uH"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -692,6 +701,7 @@
                             <constraint firstItem="vJj-6T-5bt" firstAttribute="top" secondItem="xfp-ya-NqN" secondAttribute="bottom" constant="0.5" id="nDw-X9-yIB"/>
                             <constraint firstItem="7mI-lS-jGd" firstAttribute="top" secondItem="pwL-Po-Ryq" secondAttribute="bottom" constant="5" id="nZf-2p-G36"/>
                             <constraint firstItem="zOE-OD-9jP" firstAttribute="top" secondItem="xfp-ya-NqN" secondAttribute="bottom" constant="60" id="oej-HI-wIQ"/>
+                            <constraint firstItem="xfp-ya-NqN" firstAttribute="top" secondItem="TMn-Vn-Yjl" secondAttribute="bottom" constant="40" id="pmN-ev-vIV"/>
                             <constraint firstItem="zOE-OD-9jP" firstAttribute="top" secondItem="vJj-6T-5bt" secondAttribute="bottom" id="rDt-Ta-ZsI"/>
                             <constraint firstItem="1Fw-tk-9uY" firstAttribute="top" secondItem="xfp-ya-NqN" secondAttribute="bottom" id="rIM-an-fEJ"/>
                             <constraint firstItem="iZ4-6o-CGn" firstAttribute="centerX" secondItem="uEJ-Qp-8Uf" secondAttribute="centerX" id="rga-Mg-JiL"/>
@@ -703,6 +713,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="pwL-Po-Ryq" secondAttribute="trailing" id="wz2-tS-0dp"/>
                             <constraint firstItem="L6w-du-cnG" firstAttribute="trailing" secondItem="uEJ-Qp-8Uf" secondAttribute="trailingMargin" id="xj1-nc-zRT"/>
                             <constraint firstItem="Sbt-vV-VaB" firstAttribute="top" secondItem="giM-Dm-qEi" secondAttribute="top" id="yON-ry-ucI"/>
+                            <constraint firstItem="TMn-Vn-Yjl" firstAttribute="centerX" secondItem="uEJ-Qp-8Uf" secondAttribute="centerX" id="ys6-Yw-5c1"/>
                         </constraints>
                     </view>
                     <connections>
@@ -715,6 +726,7 @@
                         <outlet property="data3Label" destination="7mI-lS-jGd" id="hB4-iT-vNl"/>
                         <outlet property="data4Label" destination="16o-CI-Z54" id="8ry-Bg-nQ4"/>
                         <outlet property="data5Label" destination="FIE-lc-Fvl" id="wOH-qt-eJ4"/>
+                        <outlet property="exchangeRateTextField" destination="TMn-Vn-Yjl" id="fKb-CE-jaE"/>
                         <outlet property="info1Label" destination="grx-BQ-2ZD" id="K2N-Iu-Ryh"/>
                         <outlet property="info2Label" destination="uTq-7G-Wql" id="uOa-Pv-nQy"/>
                         <outlet property="info3Label" destination="giM-Dm-qEi" id="rDW-Ld-RW9"/>
