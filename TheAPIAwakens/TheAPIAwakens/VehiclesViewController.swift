@@ -58,6 +58,7 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VehiclesViewController.endTextViewEditing))
         self.view.addGestureRecognizer(tap)
+
     }
     
     func setupNavigationBar() {
@@ -105,7 +106,7 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                     self.vehiclePicker.reloadAllComponents()
                 
             case .failure(let error):
-                print(error)
+               print(error)
             }
         }
         
@@ -153,6 +154,8 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
         self.USDButton.setTitleColor(unselectedColor, for: UIControlState())
         self.CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        
+ 
     }
 
 
@@ -234,30 +237,39 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             
         }
         
-        validateExchageRate(exchangeRate: exchangeRateTextField.text)
+        validateExchageRate()
     }
     
-    func validateExchageRate(exchangeRate : String?) {
-        if exchangeRate == "" {
+    func validateExchageRate() {
+        if selectedVehicle?.costDouble == nil {
+            USDButton.isEnabled = false
+        }
+        
+        if exchangeRateTextField.text == "" {
             hasExchangeRate = false
             presentAlert(title: "Invalid exchange rate", message: "Enter exchange rate")
         }
         
-        guard let exchangeRateDouble = Double(exchangeRate!) else {
+        guard let exchangeRateDouble = Double(exchangeRateTextField.text!) else {
             hasExchangeRate = false
             exchangeRateTextField.text = ""
             presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be a number")
             return
         }
         
-        if exchangeRateDouble < 0 {
+        if exchangeRateDouble <= 0 {
+            hasExchangeRate = false
             presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be greater than zero")
         }
         
-        if let vehicleCost = selectedVehicle?.costDouble {
-            hasExchangeRate = true
-            let USDCost = vehicleCost * exchangeRateDouble
-            info2Label.text = "$\(USDCost)"
+        if exchangeRateDouble > 0 {
+            if let vehicleCost = selectedVehicle?.costDouble {
+                hasExchangeRate = true
+                let USDCost = vehicleCost * exchangeRateDouble
+                info2Label.text = "$\(USDCost)"
+            } else {
+                presentAlert(title: "Error", message: "Missing cost for this vehicle")
+            }
         }
     }
     

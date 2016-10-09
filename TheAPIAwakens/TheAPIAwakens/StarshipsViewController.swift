@@ -162,6 +162,8 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         self.USDButton.setTitleColor(unselectedColor, for: UIControlState())
         self.CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
         
+       
+        
     }
 
 
@@ -245,30 +247,36 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             
         }
         
-        validateExchageRate(exchangeRate: exchangeRateTextField.text)
+        validateExchageRate()
     }
     
-    func validateExchageRate(exchangeRate : String?) {
-        if exchangeRate == "" {
+    func validateExchageRate() {
+        
+        if exchangeRateTextField.text == "" {
             hasExchangeRate = false
             presentAlert(title: "Invalid exchange rate", message: "Enter exchange rate")
         }
         
-        guard let exchangeRateDouble = Double(exchangeRate!) else {
+        guard let exchangeRateDouble = Double(exchangeRateTextField.text!) else {
             hasExchangeRate = false
             exchangeRateTextField.text = ""
             presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be a number")
             return
         }
         
-        if exchangeRateDouble < 0 {
+        if exchangeRateDouble <= 0 {
+            hasExchangeRate = false
             presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be greater than zero")
         }
         
-        if let starshipCost = selectedStarship?.costDouble {
-            hasExchangeRate = true
-            let USDCost = starshipCost * exchangeRateDouble
-            info2Label.text = "$\(USDCost)"
+        if exchangeRateDouble > 0 {
+            if let starshipCost = selectedStarship?.costDouble {
+                hasExchangeRate = true
+                let USDCost = starshipCost * exchangeRateDouble
+                info2Label.text = "$\(USDCost)"
+            } else {
+                presentAlert(title: "Error", message: "Missing cost for this starship")
+            }
         }
     }
     

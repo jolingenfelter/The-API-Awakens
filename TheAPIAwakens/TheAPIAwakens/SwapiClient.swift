@@ -126,7 +126,6 @@ func fetchCharacterVehicles(_ character: Character, completion: @escaping(APIRes
    
     var vehiclesArray = [Vehicle]()
 
-    
     if let vehicleURLArray = character.vehicles {
         for vehicleURL in vehicleURLArray {
             let url = URL(string: vehicleURL)!
@@ -138,6 +137,7 @@ func fetchCharacterVehicles(_ character: Character, completion: @escaping(APIRes
                 if let vehicle = vehicle {
                     vehiclesArray.append(vehicle)
                 }
+                
                 return vehiclesArray
                 
                 }, completion: completion)
