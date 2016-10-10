@@ -54,6 +54,9 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         setupCharacterPicker()
         buttonsSetup()
         setupDataLabels()
+        
+        // Notification observer to show alert when network connection lost
+        NotificationCenter.default.addObserver(self, selector: #selector(showCheckConnectionAlert), name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
     }
     
     func setupNavigationBar() {
@@ -83,7 +86,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         data3Label.text = "Height"
         data4Label.text = "Eyes"
         data5Label.text = "Hair"
-        data6Label.text = "Vehicles"
+        data6Label.text = "Vehicle(s)"
     }
 
     
@@ -258,5 +261,18 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         let sortedCharacters = charactersWithHeight.sorted { $0.heightDouble! < $1.heightDouble! }
         return (sortedCharacters.first!, sortedCharacters.last!)
+    }
+    
+    // MARK: Network Alert
+    
+    func showCheckConnectionAlert() {
+        let alert = UIAlertController(title: "Error", message: "Check network connection and try again", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
     }
 }

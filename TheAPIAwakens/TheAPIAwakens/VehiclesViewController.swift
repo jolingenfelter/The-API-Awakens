@@ -58,6 +58,9 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VehiclesViewController.endTextViewEditing))
         self.view.addGestureRecognizer(tap)
+        
+        // Notification observer to show alert when network connection lost
+        NotificationCenter.default.addObserver(self, selector: #selector(showCheckConnectionAlert), name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
 
     }
     
@@ -307,4 +310,18 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let sortedVehicles = vehiclesWithLength.sorted { $0.lengthDouble! < $1.lengthDouble! }
         return (sortedVehicles.first!, sortedVehicles.last!)
     }
+    
+    // MARK: Network Alert
+    
+    func showCheckConnectionAlert() {
+        let alert = UIAlertController(title: "Error", message: "Check network connection and try again", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
+    }
+
 }

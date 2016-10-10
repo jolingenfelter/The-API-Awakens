@@ -46,6 +46,8 @@ extension APIClient {
                 let userInfo = [
                     NSLocalizedDescriptionKey: NSLocalizedString("MissingHTTPResponse", comment: "")]
                 
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
+                
                 let error = NSError(domain: TRENetworkingErrorDomain, code: MissingHTTPResponseError, userInfo: userInfo)
                 
                 completion(nil, nil, error)
@@ -82,7 +84,7 @@ extension APIClient {
                     if let error = error {
                         completion(.failure(error))
                     } else {
-                        // TODO: Implement Error Handling
+                        
                     }
                     
                     return
