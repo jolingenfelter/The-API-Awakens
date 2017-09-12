@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class CharactersViewController: SwapiContainerViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // Outlets
     @IBOutlet weak var characterPicker: UIPickerView!

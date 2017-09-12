@@ -8,34 +8,7 @@
 
 import UIKit
 
-class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    
-    // Outlets
-    @IBOutlet weak var starshipPicker: UIPickerView!
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var data1Label: UILabel!
-    @IBOutlet weak var data2Label: UILabel!
-    @IBOutlet weak var data3Label: UILabel!
-    @IBOutlet weak var data4Label: UILabel!
-    @IBOutlet weak var data5Label: UILabel!
-    
-    @IBOutlet weak var info1Label: UILabel!
-    @IBOutlet weak var info2Label: UILabel!
-    @IBOutlet weak var info3Label: UILabel!
-    @IBOutlet weak var info4Label: UILabel!
-    @IBOutlet weak var info5Label: UILabel!
-    
-    
-    @IBOutlet weak var smallestObjectLabel: UILabel!
-    @IBOutlet weak var largestObjectLabel: UILabel!
-    
-    @IBOutlet weak var USDButton: UIButton!
-    @IBOutlet weak var CreditsButton: UIButton!
-    @IBOutlet weak var EnglishButton: UIButton!
-    @IBOutlet weak var MetricButton: UIButton!
-    
-    @IBOutlet weak var exchangeRateTextField: UITextField!
+class StarshipsViewController: SwapiContainerViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // Variables
     let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
@@ -49,7 +22,6 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     var hasExchangeRate: Bool = false
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -57,10 +29,14 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         setupDataLabels()
         setupStarshipPicker()
         
-        exchangeRateTextField.delegate = self
+        baseController.conversionTextField.delegate = self
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(StarshipsViewController.endTextViewEditing))
         self.view.addGestureRecognizer(tap)
+        
+        // Picker
+        baseController.picker.delegate = self
+        baseController.picker.dataSource = self
         
         // Notification observer to show alert when network connection lost
         NotificationCenter.default.addObserver(self, selector: #selector(showCheckConnectionAlert), name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
@@ -80,21 +56,21 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     func buttonsSetup() {
-        EnglishButton.addTarget(self, action: #selector(StarshipsViewController.metricToEnglish), for: .touchUpInside)
-        MetricButton.addTarget(self, action: #selector(StarshipsViewController.englishToMetric), for: .touchUpInside)
-        CreditsButton.addTarget(self, action: #selector(StarshipsViewController.USDToCredits), for: .touchUpInside)
-        USDButton.addTarget(self, action: #selector(StarshipsViewController.CreditsToUSD), for: .touchUpInside)
+        baseController.englishButton.addTarget(self, action: #selector(StarshipsViewController.metricToEnglish), for: .touchUpInside)
+        baseController.metricButton.addTarget(self, action: #selector(StarshipsViewController.englishToMetric), for: .touchUpInside)
+        baseController.creditsButton.addTarget(self, action: #selector(StarshipsViewController.USDToCredits), for: .touchUpInside)
+        baseController.englishButton.addTarget(self, action: #selector(StarshipsViewController.CreditsToUSD), for: .touchUpInside)
         
     }
     
     func setupDataLabels() {
-        data1Label.text = "Model"
-        data2Label.text = "Cost"
-        data3Label.text = "Length"
-        data4Label.text = "Class"
-        data5Label.text = "Crew"
+        baseController.data1Label.text = "Model"
+        baseController.data2Label.text = "Cost"
+        baseController.data3Label.text = "Length"
+        baseController.data4Label.text = "Class"
+        baseController.data5Label.text = "Crew"
         
-        exchangeRateTextField.placeholder = "Exchange Rate"
+        baseController.conversionTextField.placeholder = "Exchange Rate"
     }
     
     func setupStarshipPicker() {
@@ -105,14 +81,14 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 case .success(let starships):
                     self.starshipsArray = starships
                 
-                    self.smallestObjectLabel.text = self.smallestAndLargest(starships).smallest.name
-                    self.largestObjectLabel.text = self.smallestAndLargest(starships).largest.name
+                    self.baseController.smallestObjectLabel.text = self.smallestAndLargest(starships).smallest.name
+                    self.baseController.largestObjectLabel.text = self.smallestAndLargest(starships).largest.name
                 
-                    self.starshipPicker.selectRow(0, inComponent: 0, animated: true)
+                    self.baseController.picker.selectRow(0, inComponent: 0, animated: true)
                 
-                    self.selectedStarship = starships[self.starshipPicker.selectedRow(inComponent: 0)]
+                    self.selectedStarship = starships[self.baseController.picker.selectedRow(inComponent: 0)]
                 
-                    self.starshipPicker.reloadAllComponents()
+                    self.baseController.picker.reloadAllComponents()
                 
                 case .failure(let error):
                     print(error)
@@ -120,50 +96,47 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             }
         }
         
-        // PickerView
-        starshipPicker.delegate = self
-        starshipPicker.dataSource = self
     }
     
     func updateLabelsFor(_ starship: Starship) {
         
-        self.nameLabel.text = selectedStarship?.name
+        self.baseController.titleLabel.text = selectedStarship?.name
         
         if let model = selectedStarship?.model {
-            info1Label.text = model
+            baseController.info1Label.text = model
         } else {
-            info1Label.text = "N/a"
+            baseController.info1Label.text = "N/a"
         }
         
         if let starshipCost = selectedStarship?.costDouble {
-            self.info2Label.text = "\(starshipCost) credits"
+            baseController.info2Label.text = "\(starshipCost) credits"
         } else {
-            self.info2Label.text = "N/a"
+            baseController.info2Label.text = "N/a"
         }
         
         if let starshipLength = selectedStarship?.lengthDouble {
-            self.info3Label.text = "\(starshipLength) m"
+            baseController.info3Label.text = "\(starshipLength) m"
         } else {
-            self.info3Label.text = "N/a"
+            baseController.info3Label.text = "N/a"
         }
         
         if let starshipClass = selectedStarship?.starshipClass {
-            info4Label.text = starshipClass
+            baseController.info4Label.text = starshipClass
         } else {
-            info4Label.text = "N/a"
+            baseController.info4Label.text = "N/a"
         }
     
         if let crew = selectedStarship?.crew {
-            info5Label.text = crew
+            baseController.info5Label.text = crew
         } else {
-            info5Label.text = "N/a"
+            baseController.info5Label.text = "N/a"
         }
         
         // Conversion Buttons Color
-        self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
-        self.USDButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        self.baseController.englishButton.setTitleColor(unselectedColor, for: UIControlState())
+        self.baseController.metricButton.setTitleColor(UIColor.white, for: UIControlState())
+        self.baseController.usdButton.setTitleColor(unselectedColor, for: UIControlState())
+        self.baseController.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
         
        
         
@@ -199,7 +172,7 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        info3Label.text = ""
+        baseController.info3Label.text = ""
         if let starships = starshipsArray {
             let starship = starships[row]
             selectedStarship = starship
@@ -210,21 +183,21 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     // MARK: English and Metric Conversions
     
     func englishToMetric() {
-        EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
-        MetricButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController.englishButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController.metricButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let starshipLength = selectedStarship?.lengthDouble {
-            info3Label.text = "\(starshipLength) m"
+            baseController.info3Label.text = "\(starshipLength) m"
         }
     }
     
     func metricToEnglish() {
-        MetricButton.setTitleColor(unselectedColor, for: UIControlState())
-        EnglishButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController.metricButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController.englishButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let starshipLength = selectedStarship?.lengthDouble {
             let englishLength = starshipLength * 1.09361
-            info3Label.text = "\(englishLength) yds"
+            baseController.info3Label.text = "\(englishLength) yds"
         }
         
     }
@@ -232,21 +205,21 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     // MARK: USD and Credits Conversion
     
     func USDToCredits() {
-        USDButton.setTitleColor(unselectedColor, for: UIControlState())
-        CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController.usdButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let starshipCost = selectedStarship?.costDouble {
-            info2Label.text = "\(starshipCost) credits"
+            baseController.info2Label.text = "\(starshipCost) credits"
         }
     }
     
     func CreditsToUSD() {
         if hasExchangeRate == false {
-            USDButton.setTitleColor(unselectedColor, for: UIControlState())
-            CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+            baseController.usdButton.setTitleColor(unselectedColor, for: UIControlState())
+            baseController.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
         } else if hasExchangeRate == true {
-            USDButton.setTitleColor(UIColor.white, for: UIControlState())
-            CreditsButton.setTitleColor(unselectedColor, for: UIControlState())
+            baseController.usdButton.setTitleColor(UIColor.white, for: UIControlState())
+            baseController.creditsButton.setTitleColor(unselectedColor, for: UIControlState())
             
         }
         
@@ -255,14 +228,14 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     func validateExchageRate() {
         
-        if exchangeRateTextField.text == "" {
+        if baseController.conversionTextField.text == "" {
             hasExchangeRate = false
             presentAlert(title: "Invalid exchange rate", message: "Enter exchange rate")
         }
         
-        guard let exchangeRateDouble = Double(exchangeRateTextField.text!) else {
+        guard let exchangeRateDouble = Double(baseController.conversionTextField.text!) else {
             hasExchangeRate = false
-            exchangeRateTextField.text = ""
+            baseController.conversionTextField.text = ""
             presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be a number")
             return
         }
@@ -276,7 +249,7 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             if let starshipCost = selectedStarship?.costDouble {
                 hasExchangeRate = true
                 let USDCost = starshipCost * exchangeRateDouble
-                info2Label.text = "$\(USDCost)"
+                baseController.info2Label.text = "$\(USDCost)"
             } else {
                 presentAlert(title: "Error", message: "Missing cost for this starship")
             }
@@ -293,14 +266,14 @@ class StarshipsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     // MARK: TextField Delegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if exchangeRateTextField.text == "" {
-            exchangeRateTextField.placeholder = "Exchange rate"
+        if baseController.conversionTextField.text == "" {
+            baseController.conversionTextField.placeholder = "Exchange rate"
         }
         resignFirstResponder()
     }
     
     func endTextViewEditing() {
-        exchangeRateTextField.endEditing(true)
+        baseController.conversionTextField.endEditing(true)
         view.endEditing(true)
     }
     

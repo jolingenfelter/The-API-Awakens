@@ -58,6 +58,9 @@
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRp-OQ-rCO">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-starships"/>
+                                        <connections>
+                                            <segue destination="KNL-WA-DqZ" kind="show" id="b3x-rK-SF2"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starships" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhz-m8-7ST">
                                         <rect key="frame" x="0.0" y="110" width="100" height="21.5"/>
@@ -124,10 +127,10 @@
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="37.331334332833585"/>
         </scene>
-        <!--Base Swapi Controller-->
+        <!--Base Controller-->
         <scene sceneID="8M1-Nz-dqS">
             <objects>
-                <viewController id="lwu-M0-lRP" customClass="BaseSwapiController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lwu-M0-lRP" customClass="BaseController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dtW-sm-FNG"/>
                         <viewControllerLayoutGuide type="bottom" id="zOE-OD-9jP"/>
@@ -286,6 +289,12 @@
                                     <constraint firstAttribute="height" constant="0.5" id="ep8-Fq-zbi"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmP-QJ-95B" userLabel="Info6 Label">
+                                <rect key="frame" x="121" y="265" width="233" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfp-ya-NqN">
                                 <rect key="frame" x="0.0" y="407" width="375" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -380,12 +389,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmP-QJ-95B" userLabel="Info6 Label">
-                                <rect key="frame" x="121" y="265.5" width="233" height="18"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -459,41 +462,64 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="CreditsButton" destination="WQU-ae-ta1" id="8Tu-5F-uC3"/>
-                        <outlet property="EnglishButton" destination="Sbt-vV-VaB" id="7LS-tC-dC2"/>
-                        <outlet property="MetricButton" destination="r66-h3-meE" id="BT2-Wz-Rd2"/>
-                        <outlet property="USDButton" destination="HEt-1T-i1n" id="5bC-xB-Oxu"/>
-                        <outlet property="conversionTextField" destination="TMn-Vn-Yjl" id="AcQ-dC-tLL"/>
-                        <outlet property="creditsButton" destination="WQU-ae-ta1" id="6LJ-Rt-f7s"/>
-                        <outlet property="data1Label" destination="VA1-ld-d9Z" id="qmO-C4-ne9"/>
-                        <outlet property="data2Label" destination="L5T-zz-Ka8" id="k4L-cV-nsJ"/>
-                        <outlet property="data3Label" destination="7mI-lS-jGd" id="B3y-PX-Asu"/>
-                        <outlet property="data4Label" destination="16o-CI-Z54" id="uKM-vZ-6SM"/>
-                        <outlet property="data5Label" destination="FIE-lc-Fvl" id="GFT-gJ-EYD"/>
-                        <outlet property="data6Label" destination="DlA-zf-Lf5" id="2ld-4k-Gu9"/>
-                        <outlet property="englishButton" destination="Sbt-vV-VaB" id="HLD-Lw-RHm"/>
-                        <outlet property="exchangeRateTextField" destination="TMn-Vn-Yjl" id="fKb-CE-jaE"/>
-                        <outlet property="info1Label" destination="grx-BQ-2ZD" id="KUH-1M-Ewc"/>
-                        <outlet property="info2Label" destination="uTq-7G-Wql" id="Hoj-Og-4c5"/>
-                        <outlet property="info3Label" destination="giM-Dm-qEi" id="ilz-Jn-d4t"/>
-                        <outlet property="info4Label" destination="3Fn-aO-qFW" id="F0y-bV-48N"/>
-                        <outlet property="info5Label" destination="jkH-w3-m1C" id="Ym3-qA-56V"/>
-                        <outlet property="info6Label" destination="LmP-QJ-95B" id="79n-lG-OSc"/>
-                        <outlet property="largestLabel" destination="oUe-9z-MjC" id="GkV-6H-95m"/>
-                        <outlet property="largestObjectLabel" destination="oUe-9z-MjC" id="iLf-jr-OkC"/>
-                        <outlet property="metricButton" destination="r66-h3-meE" id="0wn-Q4-KFx"/>
-                        <outlet property="nameLabel" destination="iZ4-6o-CGn" id="9WB-43-cYO"/>
-                        <outlet property="picker" destination="xfp-ya-NqN" id="qqw-xY-dzr"/>
-                        <outlet property="smallestLabel" destination="epb-i3-1Pm" id="Rcx-Bk-SJt"/>
-                        <outlet property="smallestObjectLabel" destination="epb-i3-1Pm" id="IYl-zs-Sqb"/>
-                        <outlet property="titleLabel" destination="iZ4-6o-CGn" id="64a-Tm-fQn"/>
-                        <outlet property="usdButton" destination="HEt-1T-i1n" id="Wd0-iL-aD0"/>
-                        <outlet property="vehiclePicker" destination="xfp-ya-NqN" id="E2o-Yy-tKK"/>
+                        <outlet property="conversionTextField" destination="TMn-Vn-Yjl" id="YSd-Vl-5Ob"/>
+                        <outlet property="creditsButton" destination="WQU-ae-ta1" id="beK-pl-UBx"/>
+                        <outlet property="data1Label" destination="VA1-ld-d9Z" id="2Kt-Gg-OQY"/>
+                        <outlet property="data2Label" destination="L5T-zz-Ka8" id="QDX-1b-pVm"/>
+                        <outlet property="data3Label" destination="7mI-lS-jGd" id="9Iq-Do-giB"/>
+                        <outlet property="data4Label" destination="16o-CI-Z54" id="aAP-oC-HpE"/>
+                        <outlet property="data5Label" destination="FIE-lc-Fvl" id="W31-el-sxK"/>
+                        <outlet property="data6Label" destination="DlA-zf-Lf5" id="oTV-Ks-fQO"/>
+                        <outlet property="englishButton" destination="Sbt-vV-VaB" id="OLc-7b-Qni"/>
+                        <outlet property="info1Label" destination="grx-BQ-2ZD" id="fY5-0w-cIU"/>
+                        <outlet property="info2Label" destination="uTq-7G-Wql" id="Eju-8a-xq8"/>
+                        <outlet property="info3Label" destination="giM-Dm-qEi" id="bbe-mC-YdU"/>
+                        <outlet property="info4Label" destination="3Fn-aO-qFW" id="xQC-aI-RBu"/>
+                        <outlet property="info5Label" destination="jkH-w3-m1C" id="KxF-sT-L4H"/>
+                        <outlet property="info6Label" destination="LmP-QJ-95B" id="cn7-ff-Jqp"/>
+                        <outlet property="largestObjectLabel" destination="oUe-9z-MjC" id="QEU-gT-ZpH"/>
+                        <outlet property="metricButton" destination="r66-h3-meE" id="Nu5-0X-UrM"/>
+                        <outlet property="picker" destination="xfp-ya-NqN" id="n79-cG-9sv"/>
+                        <outlet property="smallestObjectLabel" destination="epb-i3-1Pm" id="GVF-Bt-cRq"/>
+                        <outlet property="titleLabel" destination="iZ4-6o-CGn" id="fdk-zs-VXR"/>
+                        <outlet property="usdButton" destination="HEt-1T-i1n" id="Y6H-ZI-QKi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="85T-2O-P6H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1756" y="36.431784107946029"/>
+            <point key="canvasLocation" x="2742" y="37"/>
+        </scene>
+        <!--Starships View Controller-->
+        <scene sceneID="8TL-dl-p2b">
+            <objects>
+                <viewController id="KNL-WA-DqZ" customClass="StarshipsViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lv7-ie-75D"/>
+                        <viewControllerLayoutGuide type="bottom" id="jhu-Im-oD0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kS7-7w-ee0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kif-ic-xuM">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <connections>
+                                    <segue destination="lwu-M0-lRP" kind="show" id="KzI-du-2no"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jhu-Im-oD0" firstAttribute="top" secondItem="kif-ic-xuM" secondAttribute="bottom" id="681-cL-vLN"/>
+                            <constraint firstAttribute="trailing" secondItem="kif-ic-xuM" secondAttribute="trailing" id="7Mi-tV-cnN"/>
+                            <constraint firstItem="kif-ic-xuM" firstAttribute="leading" secondItem="kS7-7w-ee0" secondAttribute="leading" id="bt0-5O-MSU"/>
+                            <constraint firstItem="kif-ic-xuM" firstAttribute="top" secondItem="lv7-ie-75D" secondAttribute="bottom" id="mBf-Td-lIP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I8d-7A-WKQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1679" y="-448"/>
         </scene>
     </scenes>
     <resources>

@@ -17,68 +17,6 @@
             endingLineNumber = "18"
             landmarkName = "BaseSwapiController"
             landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TheAPIAwakens.BaseSwapiController.info2Label.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILabel&gt;"
-                  moduleName = "TheAPIAwakens"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Joanna/Documents/Treehouse%20/Projects/6_TheAPIAwakens/MyProject/TheAPIAwakens/The-API-Awakens/TheAPIAwakens/TheAPIAwakens/BaseSwapiController.swift"
-                  timestampString = "526924586.06341"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "27">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TheAPIAwakens.BaseSwapiController.info2Label.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILabel&gt;"
-                  moduleName = "TheAPIAwakens"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Joanna/Documents/Treehouse%20/Projects/6_TheAPIAwakens/MyProject/TheAPIAwakens/The-API-Awakens/TheAPIAwakens/TheAPIAwakens/BaseSwapiController.swift"
-                  timestampString = "526924586.065273"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "42">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TheAPIAwakens.BaseSwapiController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; TheAPIAwakens.BaseSwapiController"
-                  moduleName = "TheAPIAwakens"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Joanna/Documents/Treehouse%20/Projects/6_TheAPIAwakens/MyProject/TheAPIAwakens/The-API-Awakens/TheAPIAwakens/TheAPIAwakens/BaseSwapiController.swift"
-                  timestampString = "526924586.067038"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "351">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TheAPIAwakens.BaseSwapiController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;TheAPIAwakens.BaseSwapiController&gt;"
-                  moduleName = "TheAPIAwakens"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Joanna/Documents/Treehouse%20/Projects/6_TheAPIAwakens/MyProject/TheAPIAwakens/The-API-Awakens/TheAPIAwakens/TheAPIAwakens/BaseSwapiController.swift"
-                  timestampString = "526924586.068482"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "277">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

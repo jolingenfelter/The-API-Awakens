@@ -21,6 +21,8 @@
 		9EC3FBAC1D9EB47B00A83C3B /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */; };
 		9ED269B41DA994AB00002810 /* VehiclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B31DA994AB00002810 /* VehiclesViewController.swift */; };
 		9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */; };
+		9EF889221F68492A00331539 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889211F68492A00331539 /* BaseController.swift */; };
+		9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889231F684B3400331539 /* SwapiContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Planet.swift; path = ../Planet.swift; sourceTree = "<group>"; };
 		9ED269B31DA994AB00002810 /* VehiclesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehiclesViewController.swift; sourceTree = "<group>"; };
 		9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarshipsViewController.swift; sourceTree = "<group>"; };
+		9EF889211F68492A00331539 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
+		9EF889231F684B3400331539 /* SwapiContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapiContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 				9EAEC4E41DA32F7800B4829B /* CharactersViewController.swift */,
 				9ED269B31DA994AB00002810 /* VehiclesViewController.swift */,
 				9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */,
+				9EF889231F684B3400331539 /* SwapiContainerViewController.swift */,
+				9EF889211F68492A00331539 /* BaseController.swift */,
 				9E6271AC1F673FBF00622101 /* Clients */,
 				9E6271AB1F673F9C00622101 /* Models */,
 				9EC3FB9B1D9EA82600A83C3B /* Main.storyboard */,
@@ -181,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E6271AE1F673FD000622101 /* Character.swift in Sources */,
+				9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */,
 				9E6271B21F67402300622101 /* Starship.swift in Sources */,
 				9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */,
 				9EC3FB9A1D9EA82600A83C3B /* HomeViewController.swift in Sources */,
@@ -190,6 +197,7 @@
 				9E6365381DA01EE6001E2CAF /* SwapiClient.swift in Sources */,
 				9EC3FBAA1D9EAA5000A83C3B /* APIClient.swift in Sources */,
 				9E6271B01F673FEC00622101 /* Vehicle.swift in Sources */,
+				9EF889221F68492A00331539 /* BaseController.swift in Sources */,
 				9EC3FBAC1D9EB47B00A83C3B /* Planet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
