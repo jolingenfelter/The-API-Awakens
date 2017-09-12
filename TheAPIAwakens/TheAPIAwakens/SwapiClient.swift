@@ -10,9 +10,9 @@ import Foundation
 
 enum Swapi: Endpoint {
     
-    case People
-    case Vehicles
-    case Starships
+    case characters
+    case vehicles
+    case starships
     
     var baseURL: URL {
         return URL(string: "http://swapi.co/api/")!
@@ -20,9 +20,9 @@ enum Swapi: Endpoint {
     
     var path: String {
         switch self {
-        case .People: return "people/"
-        case .Vehicles: return "vehicles/"
-        case .Starships: return "starships/"
+        case .characters: return "people/"
+        case .vehicles: return "vehicles/"
+        case .starships: return "starships/"
         }
     }
     
@@ -51,7 +51,7 @@ final class SwapiClient: APIClient {
     
     func fetchCharacters(_ completion: @escaping (APIResult<[Character]>) -> Void) {
         
-        let request = Swapi.People.request
+        let request = Swapi.characters.request
         
         fetch(request, parse: { json -> [Character]? in
             
@@ -70,7 +70,7 @@ final class SwapiClient: APIClient {
     
     func fetchVehicles(_ completion: @escaping (APIResult<[Vehicle]>) -> Void) {
         
-        let request = Swapi.Vehicles.request
+        let request = Swapi.vehicles.request
         
         fetch(request, parse: { json -> [Vehicle]? in
             
@@ -89,7 +89,7 @@ final class SwapiClient: APIClient {
     
     func fetchStarships(_ completion: @escaping (APIResult<[Starship]>) -> Void) {
         
-        let request = Swapi.Starships.request
+        let request = Swapi.starships.request
         
         fetch(request, parse: { json -> [Starship]? in
             
