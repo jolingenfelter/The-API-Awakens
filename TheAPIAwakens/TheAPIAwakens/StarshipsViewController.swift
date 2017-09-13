@@ -57,11 +57,10 @@ class StarshipsViewController: SwapiContainerViewController, UIPickerViewDelegat
     }
     
     func buttonsSetup() {
-        baseController?.englishButton.addTarget(self, action: #selector(StarshipsViewController.metricToEnglish), for: .touchUpInside)
-        baseController?.metricButton.addTarget(self, action: #selector(StarshipsViewController.englishToMetric), for: .touchUpInside)
-        baseController?.creditsButton.addTarget(self, action: #selector(StarshipsViewController.USDToCredits), for: .touchUpInside)
-        baseController?.englishButton.addTarget(self, action: #selector(StarshipsViewController.CreditsToUSD), for: .touchUpInside)
-        
+        baseController?.creditsButton.addTarget(self, action: #selector(usdToCredits), for: .touchUpInside)
+        baseController?.usdButton.addTarget(self, action: #selector(creditsToUSD), for: .touchUpInside)
+        baseController?.englishButton.addTarget(self, action: #selector(metricToEnglish), for: .touchUpInside)
+        baseController?.metricButton.addTarget(self, action: #selector(englishToMetric), for: .touchUpInside)
     }
     
     func setupDataLabels() {
@@ -206,57 +205,41 @@ class StarshipsViewController: SwapiContainerViewController, UIPickerViewDelegat
     
     // MARK: USD and Credits Conversion
     
-    func USDToCredits() {
+    func usdToCredits() {
+        
         baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
-        baseController?.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController?.creditsButton.setTitleColor(.white, for: UIControlState())
         
         if let starshipCost = selectedStarship?.costDouble {
             baseController?.info2Label.text = "\(starshipCost) credits"
         }
     }
     
-    func CreditsToUSD() {
-        if hasExchangeRate == false {
-            baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
-            baseController?.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
-        } else if hasExchangeRate == true {
-            baseController?.usdButton.setTitleColor(UIColor.white, for: UIControlState())
-            baseController?.creditsButton.setTitleColor(unselectedColor, for: UIControlState())
-            
-        }
+    func creditsToUSD() {
         
-        validateExchageRate()
-    }
-    
-    func validateExchageRate() {
+        let userText = baseController?.conversionTextField.text
         
-        if baseController?.conversionTextField.text == "" {
-            hasExchangeRate = false
-            presentAlert(title: "Invalid exchange rate", message: "Enter exchange rate")
-        }
-        
-        guard let exchangeRateDouble = Double((baseController?.conversionTextField.text!)!) else {
-            hasExchangeRate = false
+        guard userText != "", let exchangeRateString = userText, let exchangeRate = Double(exchangeRateString),  exchangeRate > 0 else {
+            self.hasExchangeRate = false
             baseController?.conversionTextField.text = ""
-            presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be a number")
+            presentAlert(title: "Invalid exchange rate", message: "Enter a valid exchange rate")
+            baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
+            baseController?.creditsButton.setTitleColor(.white, for: UIControlState())
             return
         }
         
-        if exchangeRateDouble <= 0 {
-            hasExchangeRate = false
-            presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be greater than zero")
+        if let starshipCost = selectedStarship?.costDouble {
+            hasExchangeRate = true
+            let USDCost = starshipCost * exchangeRate
+            baseController?.info2Label.text = "$\(USDCost)"
+            baseController?.usdButton.setTitleColor(.white, for: UIControlState())
+            baseController?.creditsButton.setTitleColor(unselectedColor, for: UIControlState())
+        } else {
+            presentAlert(title: "Error", message: "Missing cost for this starship")
         }
-        
-        if exchangeRateDouble > 0 {
-            if let starshipCost = selectedStarship?.costDouble {
-                hasExchangeRate = true
-                let USDCost = starshipCost * exchangeRateDouble
-                baseController?.info2Label.text = "$\(USDCost)"
-            } else {
-                presentAlert(title: "Error", message: "Missing cost for this starship")
-            }
-        }
+
     }
+
     
     func presentAlert(title: String, message: String) {
         let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
