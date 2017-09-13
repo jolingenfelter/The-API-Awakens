@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct Starship {
+struct Starship: Priceable {
     
     let name: String?
     let model: String?
-    let costString: String?
+    internal var costString: String?
     let lengthString: String?
     let starshipClass: String?
     let crew: String?
     
-    let costDouble: Double?
+    var costDouble: Double?
     let lengthDouble: Double?
     
 }

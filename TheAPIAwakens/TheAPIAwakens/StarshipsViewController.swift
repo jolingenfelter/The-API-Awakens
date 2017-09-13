@@ -27,7 +27,7 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
         setupNavigationBar()
         buttonsSetup()
         setupDataLabels()
-        setupStarshipPicker()
+        fetchAndLoadStarships()
 
         
         baseController?.conversionTextField.delegate = self
@@ -73,7 +73,7 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
         baseController?.conversionTextField.placeholder = "Exchange Rate"
     }
     
-    func setupStarshipPicker() {
+    func fetchAndLoadStarships() {
         
         // SwapiClient
         swapiClient.fetchStarships { result in
@@ -134,12 +134,10 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
         }
         
         // Conversion Buttons Color
-        self.baseController?.englishButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
-        self.baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.baseController?.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
-        
-       
+        self.baseController?.englishButton.setTitleColor(unselectedColor, for: .normal)
+        self.baseController?.metricButton.setTitleColor(UIColor.white, for: .normal)
+        self.baseController?.usdButton.setTitleColor(unselectedColor, for: .normal)
+        self.baseController?.creditsButton.setTitleColor(UIColor.white, for: .normal)
         
     }
 
@@ -179,7 +177,7 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
         baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
         baseController?.creditsButton.setTitleColor(.white, for: UIControlState())
         
-        if let starshipCost = selectedStarship?.costDouble {
+        if let starshipCost = selectedStarship?.costString{
             baseController?.info2Label.text = "\(starshipCost) credits"
         }
     }
@@ -188,7 +186,7 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
         
         let userText = baseController?.conversionTextField.text
         
-        guard userText != "", let exchangeRateString = userText, let exchangeRate = Double(exchangeRateString),  exchangeRate > 0 else {
+        guard userText != "", let exchangeRateString = userText, let exchangeRate = Double(exchangeRateString) else {
             self.hasExchangeRate = false
             baseController?.conversionTextField.text = ""
             presentAlert(title: "Invalid exchange rate", message: "Enter a valid exchange rate")
@@ -197,14 +195,20 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
             return
         }
         
-        if let starshipCost = selectedStarship?.costDouble {
-            hasExchangeRate = true
-            let USDCost = starshipCost * exchangeRate
-            baseController?.info2Label.text = "$\(USDCost)"
-            baseController?.usdButton.setTitleColor(.white, for: UIControlState())
-            baseController?.creditsButton.setTitleColor(unselectedColor, for: UIControlState())
-        } else {
-            presentAlert(title: "Error", message: "Missing cost for this starship")
+        do {
+                try selectedStarship?.usdCost(exchangeRate: exchangeRate) { (convertedCost) in
+                self.hasExchangeRate = true
+                self.baseController?.info2Label.text = "$\(convertedCost)"
+                self.baseController?.usdButton.setTitleColor(.white, for: .normal)
+                self.baseController?.creditsButton.setTitleColor(self.unselectedColor, for: .normal)
+            }
+            
+        } catch ConversionError.UnavailableCost {
+            presentAlert(title: "Error", message: ConversionError.UnavailableCost.rawValue)
+        } catch ConversionError.InvalidExchangeRate {
+            presentAlert(title: "Error", message: ConversionError.InvalidExchangeRate.rawValue)
+        } catch let error {
+            presentAlert(title: "Error", message: error.localizedDescription)
         }
 
     }

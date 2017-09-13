@@ -22,6 +22,7 @@
 		9ED269B41DA994AB00002810 /* VehiclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B31DA994AB00002810 /* VehiclesViewController.swift */; };
 		9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */; };
 		9EE7644C1F697F8D0074A6E4 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */; };
+		9EE7644F1F69814D0074A6E4 /* Priceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE7644E1F69814D0074A6E4 /* Priceable.swift */; };
 		9EF889221F68492A00331539 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889211F68492A00331539 /* BaseController.swift */; };
 		9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889231F684B3400331539 /* SwapiContainerViewController.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		9ED269B31DA994AB00002810 /* VehiclesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehiclesViewController.swift; sourceTree = "<group>"; };
 		9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarshipsViewController.swift; sourceTree = "<group>"; };
 		9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		9EE7644E1F69814D0074A6E4 /* Priceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Priceable.swift; sourceTree = "<group>"; };
 		9EF889211F68492A00331539 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		9EF889231F684B3400331539 /* SwapiContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapiContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,6 +68,7 @@
 				9E6271AF1F673FEC00622101 /* Vehicle.swift */,
 				9E6271B11F67402300622101 /* Starship.swift */,
 				9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */,
+				9EE7644E1F69814D0074A6E4 /* Priceable.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				9E6271AE1F673FD000622101 /* Character.swift in Sources */,
 				9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */,
 				9E6271B21F67402300622101 /* Starship.swift in Sources */,
+				9EE7644F1F69814D0074A6E4 /* Priceable.swift in Sources */,
 				9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */,
 				9EC3FB9A1D9EA82600A83C3B /* HomeViewController.swift in Sources */,
 				9ED269B41DA994AB00002810 /* VehiclesViewController.swift in Sources */,
