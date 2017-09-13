@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StarshipsViewController: SwapiContainerViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate {
     
     // Variables
     let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
@@ -149,37 +149,6 @@ class StarshipsViewController: SwapiContainerViewController, UIPickerViewDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: UIPickerView Delegate
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let starships = starshipsArray {
-            return starships.count
-        } else {
-            return 1
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let starships = starshipsArray {
-            let starship = starships[row]
-            return starship.name
-        } else {
-            return ("Awaiting starship arrival")
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        baseController?.info3Label.text = ""
-        if let starships = starshipsArray {
-            let starship = starships[row]
-            selectedStarship = starship
-        }
-    }
-    
     
     // MARK: English and Metric Conversions
     
@@ -278,14 +247,45 @@ class StarshipsViewController: SwapiContainerViewController, UIPickerViewDelegat
     // MARK: Network Alert
     
     func showCheckConnectionAlert() {
-        let alert = UIAlertController(title: "Error", message: "Check network connection and try again", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        showAlert(withTitle: "Error", andMessage: "Check network connection and try again")
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
     }
 
+}
+
+// MARK: - PickerView
+
+extension StarshipsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if let starships = starshipsArray {
+            return starships.count
+        } else {
+            return 1
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if let starships = starshipsArray {
+            let starship = starships[row]
+            return starship.name
+        } else {
+            return ("Awaiting starship arrival")
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        baseController?.info3Label.text = ""
+        if let starships = starshipsArray {
+            let starship = starships[row]
+            selectedStarship = starship
+        }
+    }
 }

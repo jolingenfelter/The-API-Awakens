@@ -21,6 +21,7 @@
 		9EC3FBAC1D9EB47B00A83C3B /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */; };
 		9ED269B41DA994AB00002810 /* VehiclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B31DA994AB00002810 /* VehiclesViewController.swift */; };
 		9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */; };
+		9EE7644C1F697F8D0074A6E4 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */; };
 		9EF889221F68492A00331539 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889211F68492A00331539 /* BaseController.swift */; };
 		9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889231F684B3400331539 /* SwapiContainerViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Planet.swift; path = ../Planet.swift; sourceTree = "<group>"; };
 		9ED269B31DA994AB00002810 /* VehiclesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehiclesViewController.swift; sourceTree = "<group>"; };
 		9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarshipsViewController.swift; sourceTree = "<group>"; };
+		9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		9EF889211F68492A00331539 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		9EF889231F684B3400331539 /* SwapiContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapiContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,12 +107,21 @@
 				9EF889211F68492A00331539 /* BaseController.swift */,
 				9E6271AC1F673FBF00622101 /* Clients */,
 				9E6271AB1F673F9C00622101 /* Models */,
+				9EE7644D1F697F960074A6E4 /* Helpers */,
 				9EC3FB9B1D9EA82600A83C3B /* Main.storyboard */,
 				9EC3FB9E1D9EA82600A83C3B /* Assets.xcassets */,
 				9EC3FBA01D9EA82600A83C3B /* LaunchScreen.storyboard */,
 				9EC3FBA31D9EA82600A83C3B /* Info.plist */,
 			);
 			path = TheAPIAwakens;
+			sourceTree = "<group>";
+		};
+		9EE7644D1F697F960074A6E4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +209,7 @@
 				9EC3FBAA1D9EAA5000A83C3B /* APIClient.swift in Sources */,
 				9E6271B01F673FEC00622101 /* Vehicle.swift in Sources */,
 				9EF889221F68492A00331539 /* BaseController.swift in Sources */,
+				9EE7644C1F697F8D0074A6E4 /* UIViewControllerExtension.swift in Sources */,
 				9EC3FBAC1D9EB47B00A83C3B /* Planet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
