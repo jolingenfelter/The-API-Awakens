@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate {
+class StarshipsViewController: SwapiContainerViewController {
     
     // Variables
     let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
@@ -221,20 +221,6 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
         self.present(alertView, animated: true, completion: nil)
     }
     
-    // MARK: TextField Delegate
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if baseController?.conversionTextField.text == "" {
-            baseController?.conversionTextField.placeholder = "Exchange rate"
-        }
-        resignFirstResponder()
-    }
-    
-    func endTextViewEditing() {
-        baseController?.conversionTextField.endEditing(true)
-        view.endEditing(true)
-    }
-    
     // MARK: Smallest and Largest
     
     func smallestAndLargest(_ starships: [Starship]) -> (smallest: Starship, largest: Starship) {
@@ -258,6 +244,36 @@ class StarshipsViewController: SwapiContainerViewController, UITextFieldDelegate
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
     }
 
+}
+
+// MARK: - UITextFieldDelegate
+
+extension StarshipsViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if baseController?.conversionTextField.text == "" {
+            baseController?.conversionTextField.placeholder = "Exchange rate"
+        }
+        resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if baseController?.conversionTextField.text != "" {
+            creditsToUSD()
+        }
+        
+        endTextViewEditing()
+        
+        return true
+    }
+    
+    func endTextViewEditing() {
+        baseController?.conversionTextField.endEditing(true)
+        view.endEditing(true)
+    }
+    
 }
 
 // MARK: - PickerView

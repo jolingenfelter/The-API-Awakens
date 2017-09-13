@@ -22,7 +22,7 @@ extension Priceable {
     
     func usdCost(exchangeRate: Double, completion: @escaping (Double) -> ()) throws {
         
-        guard costString != "unknown" else {
+        guard costString != "unknown" || costString == nil else {
             throw ConversionError.UnavailableCost
         }
         
