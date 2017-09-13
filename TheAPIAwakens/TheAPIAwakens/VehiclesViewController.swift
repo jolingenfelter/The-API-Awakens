@@ -8,34 +8,7 @@
 
 import UIKit
 
-class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    
-    // Outlets
-    @IBOutlet weak var vehiclePicker: UIPickerView!
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var data1Label: UILabel!
-    @IBOutlet weak var data2Label: UILabel!
-    @IBOutlet weak var data3Label: UILabel!
-    @IBOutlet weak var data4Label: UILabel!
-    @IBOutlet weak var data5Label: UILabel!
- 
-    @IBOutlet weak var info1Label: UILabel!
-    @IBOutlet weak var info2Label: UILabel!
-    @IBOutlet weak var info3Label: UILabel!
-    @IBOutlet weak var info4Label: UILabel!
-    @IBOutlet weak var info5Label: UILabel!
-    
-    
-    @IBOutlet weak var smallestObjectLabel: UILabel!
-    @IBOutlet weak var largestObjectLabel: UILabel!
-    
-    @IBOutlet weak var USDButton: UIButton!
-    @IBOutlet weak var CreditsButton: UIButton!
-    @IBOutlet weak var EnglishButton: UIButton!
-    @IBOutlet weak var MetricButton: UIButton!
-    
-    @IBOutlet weak var exchangeRateTextField: UITextField!
+class VehiclesViewController: SwapiContainerViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // Variables
     let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
@@ -43,7 +16,9 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     let swapiClient = SwapiClient()
     var selectedVehicle: Vehicle? {
         didSet {
-            self.updateLabelsFor(selectedVehicle!)
+            if let selectedVehicle = selectedVehicle {
+                self.updateLabelsFor(selectedVehicle)
+            }
         }
     }
     
@@ -55,6 +30,10 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         buttonsSetup()
         setupDataLabels()
         setupVehiclePicker()
+        
+        // Picker
+        baseController?.picker.delegate = self
+        baseController?.picker.dataSource = self
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VehiclesViewController.endTextViewEditing))
         self.view.addGestureRecognizer(tap)
@@ -78,17 +57,17 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func buttonsSetup() {
-        EnglishButton.addTarget(self, action: #selector(VehiclesViewController.metricToEnglish), for: .touchUpInside)
-        MetricButton.addTarget(self, action: #selector(VehiclesViewController.englishToMetric), for: .touchUpInside)
+        baseController?.englishButton.addTarget(self, action: #selector(VehiclesViewController.metricToEnglish), for: .touchUpInside)
+        baseController?.metricButton.addTarget(self, action: #selector(VehiclesViewController.englishToMetric), for: .touchUpInside)
 
     }
     
     func setupDataLabels() {
-        data1Label.text = "Model"
-        data2Label.text = "Cost"
-        data3Label.text = "Length"
-        data4Label.text = "Class"
-        data5Label.text = "Crew"
+        baseController?.data1Label.text = "Model"
+        baseController?.data2Label.text = "Cost"
+        baseController?.data3Label.text = "Length"
+        baseController?.data4Label.text = "Class"
+        baseController?.data5Label.text = "Crew"
     }
     
     func setupVehiclePicker() {
@@ -99,64 +78,60 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 case .success(let vehicles):
                     self.vehiclesArray = vehicles
                     
-                    self.smallestObjectLabel.text = self.smallestAndLargest(vehicles).smallest.name
-                    self.largestObjectLabel.text = self.smallestAndLargest(vehicles).largest.name
+                    self.baseController?.smallestObjectLabel.text = self.smallestAndLargest(vehicles).smallest.name
+                    self.baseController?.largestObjectLabel.text = self.smallestAndLargest(vehicles).largest.name
                 
-                    self.vehiclePicker.selectRow(0, inComponent: 0, animated: true)
+                    self.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
                 
-                    self.selectedVehicle = vehicles[self.vehiclePicker.selectedRow(inComponent: 0)]
+                    self.selectedVehicle = vehicles[(self.baseController?.picker.selectedRow(inComponent: 0))!]
                 
-                    self.vehiclePicker.reloadAllComponents()
+                    self.baseController?.picker.reloadAllComponents()
                 
             case .failure(let error):
                print(error)
             }
         }
         
-        // PickerView 
-        vehiclePicker.dataSource = self
-        vehiclePicker.delegate = self
-        
     }
     
     func updateLabelsFor(_ vehicle: Vehicle) {
-        self.nameLabel.text = selectedVehicle?.name
+        self.baseController?.titleLabel.text = selectedVehicle?.name
         
         if let make = selectedVehicle?.model {
-            info1Label.text = make
+            baseController?.info1Label.text = make
         } else {
-            info1Label.text = "N/a"
+            baseController?.info1Label.text = "N/a"
         }
         
         if let vehicleCost = selectedVehicle?.costDouble {
-            self.info2Label.text = "\(vehicleCost) credits"
+            baseController?.self.info2Label.text = "\(vehicleCost) credits"
         } else {
-            info2Label.text = "N/a"
+            baseController?.info2Label.text = "N/a"
         }
         
         if let vehicleLength = selectedVehicle?.lengthDouble {
-            self.info3Label.text = "\(vehicleLength) cm"
+            baseController?.info3Label.text = "\(vehicleLength) cm"
         } else {
-            info3Label.text = "N/a"
+            baseController?.info3Label.text = "N/a"
         }
         
         if let vehicleClass = selectedVehicle?.vehicleClass {
-            info4Label.text = vehicleClass
+            baseController?.info4Label.text = vehicleClass
         } else {
-            info4Label.text = "N/a"
+            baseController?.info4Label.text = "N/a"
         }
        
         if let crew = selectedVehicle?.crew {
-            info5Label.text = crew
+            baseController?.info5Label.text = crew
         } else {
-            info5Label.text = "N/a"
+            baseController?.info5Label.text = "N/a"
         }
         
         // Conversion Buttons Color 
-        self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
-        self.USDButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        self.baseController?.englishButton.setTitleColor(unselectedColor, for: UIControlState())
+        self.baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
+        self.baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
+        self.baseController?.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
         
  
     }
@@ -200,21 +175,21 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     // MARK: English and Metric Conversions
     
     func englishToMetric() {
-        EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
-        MetricButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController?.englishButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let vehicleLength = selectedVehicle?.lengthDouble {
-            info3Label.text = "\(vehicleLength) cm"
+            baseController?.info3Label.text = "\(vehicleLength) cm"
         }
     }
     
     func metricToEnglish() {
-        MetricButton.setTitleColor(unselectedColor, for: UIControlState())
-        EnglishButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController?.metricButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController?.englishButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let vehicleLength = selectedVehicle?.lengthDouble {
             let englishLength = vehicleLength * 0.328084
-            info3Label.text = "\(englishLength) ft"
+            baseController?.info3Label.text = "\(englishLength) ft"
         }
         
     }
@@ -222,21 +197,21 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     // MARK: USD and Credits Conversion
     
     func USDToCredits() {
-        USDButton.setTitleColor(unselectedColor, for: UIControlState())
-        CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController?.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let vehicleCost = selectedVehicle?.costDouble {
-            info2Label.text = "\(vehicleCost) credits"
+            baseController?.info2Label.text = "\(vehicleCost) credits"
         }
     }
     
     func CreditsToUSD() {
         if hasExchangeRate == false {
-            USDButton.setTitleColor(unselectedColor, for: UIControlState())
-            CreditsButton.setTitleColor(UIColor.white, for: UIControlState())
+            baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
+            baseController?.creditsButton.setTitleColor(UIColor.white, for: UIControlState())
         } else if hasExchangeRate == true {
-            USDButton.setTitleColor(UIColor.white, for: UIControlState())
-            CreditsButton.setTitleColor(unselectedColor, for: UIControlState())
+            baseController?.usdButton.setTitleColor(UIColor.white, for: UIControlState())
+            baseController?.creditsButton.setTitleColor(unselectedColor, for: UIControlState())
             
         }
         
@@ -245,17 +220,17 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     func validateExchageRate() {
         if selectedVehicle?.costDouble == nil {
-            USDButton.isEnabled = false
+            baseController?.usdButton.isEnabled = false
         }
         
-        if exchangeRateTextField.text == "" {
+        if baseController?.conversionTextField.text == "" {
             hasExchangeRate = false
             presentAlert(title: "Invalid exchange rate", message: "Enter exchange rate")
         }
         
-        guard let exchangeRateDouble = Double(exchangeRateTextField.text!) else {
+        guard let exchangeRateDouble = Double((baseController?.conversionTextField.text!)!) else {
             hasExchangeRate = false
-            exchangeRateTextField.text = ""
+            baseController?.conversionTextField.text = ""
             presentAlert(title: "Invalid exchange rate", message: "Exchange rate must be a number")
             return
         }
@@ -269,7 +244,7 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             if let vehicleCost = selectedVehicle?.costDouble {
                 hasExchangeRate = true
                 let USDCost = vehicleCost * exchangeRateDouble
-                info2Label.text = "$\(USDCost)"
+                baseController?.info2Label.text = "$\(USDCost)"
             } else {
                 presentAlert(title: "Error", message: "Missing cost for this vehicle")
             }
@@ -287,14 +262,14 @@ class VehiclesViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     // MARK: TextField Delegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if exchangeRateTextField.text == "" {
-            exchangeRateTextField.placeholder = "Exchange rate"
+        if baseController?.conversionTextField.text == "" {
+            baseController?.conversionTextField.placeholder = "Exchange rate"
         }
         resignFirstResponder()
     }
     
     func endTextViewEditing() {
-        exchangeRateTextField.endEditing(true)
+        baseController?.conversionTextField.endEditing(true)
         view.endEditing(true)
     }
 
