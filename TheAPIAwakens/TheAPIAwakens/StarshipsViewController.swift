@@ -105,6 +105,7 @@ class StarshipsViewController: SwapiContainerViewController {
         if let model = selectedStarship?.model {
             
             baseController?.info1Label.text = model
+            
         } else {
             baseController?.info1Label.text = "N/a"
         }
@@ -164,7 +165,7 @@ class StarshipsViewController: SwapiContainerViewController {
         baseController?.englishButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let starshipLength = selectedStarship?.lengthDouble {
-            let englishLength = starshipLength * 1.09361
+            let englishLength = starshipLength.metersToYards()
             baseController?.info3Label.text = "\(englishLength) yds"
         }
         
@@ -189,7 +190,7 @@ class StarshipsViewController: SwapiContainerViewController {
         guard userText != "", let exchangeRateString = userText, let exchangeRate = Double(exchangeRateString) else {
             self.hasExchangeRate = false
             baseController?.conversionTextField.text = ""
-            presentAlert(title: "Invalid exchange rate", message: "Enter a valid exchange rate")
+            showAlert(withTitle: "Invalid exchange rate", andMessage: "Enter a valid exchange rate")
             baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
             baseController?.creditsButton.setTitleColor(.white, for: UIControlState())
             return
@@ -204,21 +205,13 @@ class StarshipsViewController: SwapiContainerViewController {
             }
             
         } catch ConversionError.UnavailableCost {
-            presentAlert(title: "Error", message: ConversionError.UnavailableCost.rawValue)
+            showAlert(withTitle: "Error", andMessage: ConversionError.UnavailableCost.rawValue)
         } catch ConversionError.InvalidExchangeRate {
-            presentAlert(title: "Error", message: ConversionError.InvalidExchangeRate.rawValue)
+            showAlert(withTitle: "Error", andMessage: ConversionError.InvalidExchangeRate.rawValue)
         } catch let error {
-            presentAlert(title: "Error", message: error.localizedDescription)
+            showAlert(withTitle: "Error", andMessage: error.localizedDescription)
         }
 
-    }
-
-    
-    func presentAlert(title: String, message: String) {
-        let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alertView.addAction(action)
-        self.present(alertView, animated: true, completion: nil)
     }
     
     // MARK: Smallest and Largest
