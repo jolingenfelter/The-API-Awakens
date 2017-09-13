@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct Vehicle {
+struct Vehicle: Priceable {
     
     let name: String?
     let model: String?
-    let costString: String?
+    internal var costString: String?
     let lengthString: String?
     let vehicleClass: String?
     let crew: String?
     
     let lengthDouble: Double?
-    let costDouble: Double?
+    internal var costDouble: Double?
     
 }
 

@@ -17,7 +17,7 @@ struct Starship: Priceable {
     let starshipClass: String?
     let crew: String?
     
-    var costDouble: Double?
+    internal var costDouble: Double?
     let lengthDouble: Double?
     
 }
