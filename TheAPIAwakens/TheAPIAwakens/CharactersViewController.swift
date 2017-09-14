@@ -87,7 +87,7 @@ class CharactersViewController: SwapiContainerViewController {
                 self.baseController?.picker.reloadAllComponents()
             
             case .failure(let error):
-                print(error)
+                self.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
