@@ -7,22 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E6271AE1F673FD000622101 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6271AD1F673FD000622101 /* Character.swift */; };
+		9E6271B01F673FEC00622101 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6271AF1F673FEC00622101 /* Vehicle.swift */; };
+		9E6271B21F67402300622101 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6271B11F67402300622101 /* Starship.swift */; };
 		9E6365381DA01EE6001E2CAF /* SwapiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6365371DA01EE6001E2CAF /* SwapiClient.swift */; };
 		9EAEC4E51DA32F7800B4829B /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEC4E41DA32F7800B4829B /* CharactersViewController.swift */; };
+		9EBC9C2E1F69C28B00440C71 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBC9C2D1F69C28B00440C71 /* DoubleExtension.swift */; };
 		9EC3FB981D9EA82600A83C3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3FB971D9EA82600A83C3B /* AppDelegate.swift */; };
 		9EC3FB9A1D9EA82600A83C3B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3FB991D9EA82600A83C3B /* HomeViewController.swift */; };
 		9EC3FB9D1D9EA82600A83C3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EC3FB9B1D9EA82600A83C3B /* Main.storyboard */; };
 		9EC3FB9F1D9EA82600A83C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC3FB9E1D9EA82600A83C3B /* Assets.xcassets */; };
 		9EC3FBA21D9EA82600A83C3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EC3FBA01D9EA82600A83C3B /* LaunchScreen.storyboard */; };
 		9EC3FBAA1D9EAA5000A83C3B /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3FBA91D9EAA5000A83C3B /* APIClient.swift */; };
-		9EC3FBAC1D9EB47B00A83C3B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3FBAB1D9EB47B00A83C3B /* Models.swift */; };
+		9EC3FBAC1D9EB47B00A83C3B /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */; };
 		9ED269B41DA994AB00002810 /* VehiclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B31DA994AB00002810 /* VehiclesViewController.swift */; };
 		9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */; };
+		9EE7644C1F697F8D0074A6E4 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */; };
+		9EE7644F1F69814D0074A6E4 /* Priceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE7644E1F69814D0074A6E4 /* Priceable.swift */; };
+		9EF889221F68492A00331539 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889211F68492A00331539 /* BaseController.swift */; };
+		9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF889231F684B3400331539 /* SwapiContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E6271AD1F673FD000622101 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		9E6271AF1F673FEC00622101 /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		9E6271B11F67402300622101 /* Starship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
 		9E6365371DA01EE6001E2CAF /* SwapiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapiClient.swift; sourceTree = "<group>"; };
 		9EAEC4E41DA32F7800B4829B /* CharactersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharactersViewController.swift; sourceTree = "<group>"; };
+		9EBC9C2D1F69C28B00440C71 /* DoubleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		9EC3FB941D9EA82600A83C3B /* TheAPIAwakens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheAPIAwakens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC3FB971D9EA82600A83C3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EC3FB991D9EA82600A83C3B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -31,9 +43,13 @@
 		9EC3FBA11D9EA82600A83C3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EC3FBA31D9EA82600A83C3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EC3FBA91D9EAA5000A83C3B /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		9EC3FBAB1D9EB47B00A83C3B /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Models.swift; path = ../Models.swift; sourceTree = "<group>"; };
+		9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Planet.swift; path = ../Planet.swift; sourceTree = "<group>"; };
 		9ED269B31DA994AB00002810 /* VehiclesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehiclesViewController.swift; sourceTree = "<group>"; };
 		9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarshipsViewController.swift; sourceTree = "<group>"; };
+		9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		9EE7644E1F69814D0074A6E4 /* Priceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Priceable.swift; sourceTree = "<group>"; };
+		9EF889211F68492A00331539 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
+		9EF889231F684B3400331539 /* SwapiContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwapiContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +63,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E6271AB1F673F9C00622101 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9E6271AD1F673FD000622101 /* Character.swift */,
+				9E6271AF1F673FEC00622101 /* Vehicle.swift */,
+				9E6271B11F67402300622101 /* Starship.swift */,
+				9EC3FBAB1D9EB47B00A83C3B /* Planet.swift */,
+				9EE7644E1F69814D0074A6E4 /* Priceable.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		9E6271AC1F673FBF00622101 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				9EC3FBA91D9EAA5000A83C3B /* APIClient.swift */,
+				9E6365371DA01EE6001E2CAF /* SwapiClient.swift */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
 		9EC3FB8B1D9EA82600A83C3B = {
 			isa = PBXGroup;
 			children = (
@@ -71,15 +108,26 @@
 				9EAEC4E41DA32F7800B4829B /* CharactersViewController.swift */,
 				9ED269B31DA994AB00002810 /* VehiclesViewController.swift */,
 				9ED269B51DA9C68F00002810 /* StarshipsViewController.swift */,
-				9EC3FBAB1D9EB47B00A83C3B /* Models.swift */,
-				9EC3FBA91D9EAA5000A83C3B /* APIClient.swift */,
-				9E6365371DA01EE6001E2CAF /* SwapiClient.swift */,
+				9EF889231F684B3400331539 /* SwapiContainerViewController.swift */,
+				9EF889211F68492A00331539 /* BaseController.swift */,
+				9E6271AC1F673FBF00622101 /* Clients */,
+				9E6271AB1F673F9C00622101 /* Models */,
+				9EE7644D1F697F960074A6E4 /* Helpers */,
 				9EC3FB9B1D9EA82600A83C3B /* Main.storyboard */,
 				9EC3FB9E1D9EA82600A83C3B /* Assets.xcassets */,
 				9EC3FBA01D9EA82600A83C3B /* LaunchScreen.storyboard */,
 				9EC3FBA31D9EA82600A83C3B /* Info.plist */,
 			);
 			path = TheAPIAwakens;
+			sourceTree = "<group>";
+		};
+		9EE7644D1F697F960074A6E4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */,
+				9EBC9C2D1F69C28B00440C71 /* DoubleExtension.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,7 +157,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = JoLingenfelter;
 				TargetAttributes = {
 					9EC3FB931D9EA82600A83C3B = {
@@ -155,14 +203,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6271AE1F673FD000622101 /* Character.swift in Sources */,
+				9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */,
+				9E6271B21F67402300622101 /* Starship.swift in Sources */,
+				9EE7644F1F69814D0074A6E4 /* Priceable.swift in Sources */,
 				9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */,
 				9EC3FB9A1D9EA82600A83C3B /* HomeViewController.swift in Sources */,
 				9ED269B41DA994AB00002810 /* VehiclesViewController.swift in Sources */,
 				9EC3FB981D9EA82600A83C3B /* AppDelegate.swift in Sources */,
+				9EBC9C2E1F69C28B00440C71 /* DoubleExtension.swift in Sources */,
 				9EAEC4E51DA32F7800B4829B /* CharactersViewController.swift in Sources */,
 				9E6365381DA01EE6001E2CAF /* SwapiClient.swift in Sources */,
 				9EC3FBAA1D9EAA5000A83C3B /* APIClient.swift in Sources */,
-				9EC3FBAC1D9EB47B00A83C3B /* Models.swift in Sources */,
+				9E6271B01F673FEC00622101 /* Vehicle.swift in Sources */,
+				9EF889221F68492A00331539 /* BaseController.swift in Sources */,
+				9EE7644C1F697F8D0074A6E4 /* UIViewControllerExtension.swift in Sources */,
+				9EC3FBAC1D9EB47B00A83C3B /* Planet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +262,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -256,6 +313,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

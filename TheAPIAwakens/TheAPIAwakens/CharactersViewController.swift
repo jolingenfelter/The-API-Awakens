@@ -8,38 +8,9 @@
 
 import UIKit
 
-class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    // Outlets
-    @IBOutlet weak var characterPicker: UIPickerView!
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var data1Label: UILabel!
-    @IBOutlet weak var data2Label: UILabel!
-    @IBOutlet weak var data3Label: UILabel!
-    @IBOutlet weak var data4Label: UILabel!
-    @IBOutlet weak var data5Label: UILabel!
-    @IBOutlet weak var data6Label: UILabel!
-    
-    @IBOutlet weak var info1Label: UILabel!
-    @IBOutlet weak var info2Label: UILabel!
-    @IBOutlet weak var info3Label: UILabel!
-    @IBOutlet weak var info4Label: UILabel!
-    @IBOutlet weak var info5Label: UILabel!
-    @IBOutlet weak var info6Label: UILabel!
+class CharactersViewController: SwapiContainerViewController {
 
-    
-    @IBOutlet weak var smallestObjectLabel: UILabel!
-    @IBOutlet weak var largestObjectLabel: UILabel!
-    
-    @IBOutlet weak var USDButton: UIButton!
-    @IBOutlet weak var CreditsButton: UIButton!
-    @IBOutlet weak var EnglishButton: UIButton!
-    @IBOutlet weak var MetricButton: UIButton!
-
-    
     // Variables
-    let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
     var charactersArray: [Character]?
     let swapiClient = SwapiClient()
     var selectedCharacter: Character? {
@@ -54,6 +25,10 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         setupCharacterPicker()
         buttonsSetup()
         setupDataLabels()
+        
+        // Picker
+        baseController?.picker.delegate = self
+        baseController?.picker.dataSource = self
         
         // Notification observer to show alert when network connection lost
         NotificationCenter.default.addObserver(self, selector: #selector(showCheckConnectionAlert), name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
@@ -73,20 +48,20 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func buttonsSetup() {
-        USDButton.isHidden = true
-        CreditsButton.isHidden = true
+        baseController?.usdButton.isHidden = true
+        baseController?.creditsButton.isHidden = true
         
-        EnglishButton.addTarget(self, action: #selector(CharactersViewController.metricToEnglish), for: .touchUpInside)
-        MetricButton.addTarget(self, action: #selector(CharactersViewController.englishToMetric), for: .touchUpInside)
+        baseController?.englishButton.addTarget(self, action: #selector(CharactersViewController.metricToEnglish), for: .touchUpInside)
+        baseController?.metricButton.addTarget(self, action: #selector(CharactersViewController.englishToMetric), for: .touchUpInside)
     }
     
     func setupDataLabels() {
-        data1Label.text = "Born"
-        data2Label.text = "Home"
-        data3Label.text = "Height"
-        data4Label.text = "Eyes"
-        data5Label.text = "Hair"
-        data6Label.text = "Vehicle(s)"
+        baseController?.data1Label.text = "Born"
+        baseController?.data2Label.text = "Home"
+        baseController?.data3Label.text = "Height"
+        baseController?.data4Label.text = "Eyes"
+        baseController?.data5Label.text = "Hair"
+        baseController?.data6Label.text = "Vehicle(s)"
     }
 
     
@@ -98,27 +73,23 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
             case .success(let characters):
                 self.charactersArray = characters
                 
-                self.smallestObjectLabel.text = self.smallestAndLargest(characters).smallest.name
-                self.largestObjectLabel.text = self.smallestAndLargest(characters).largest.name
+                self.baseController?.smallestObjectLabel.text = self.smallestAndLargest(characters).smallest.name
+                self.baseController?.largestObjectLabel.text = self.smallestAndLargest(characters).largest.name
                 
-                self.characterPicker.selectRow(0, inComponent: 0, animated: true)
+                self.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
                 
-                self.selectedCharacter = characters[self.characterPicker.selectedRow(inComponent: 0)]
+                self.selectedCharacter = characters[(self.baseController?.picker.selectedRow(inComponent: 0))!]
                 
                 self.fetchCharacterHome(self.selectedCharacter!)
                 
                 self.fetchVehiclesForCharacter(self.selectedCharacter!)
                 
-                self.characterPicker.reloadAllComponents()
+                self.baseController?.picker.reloadAllComponents()
             
             case .failure(let error):
-                print(error)
+                self.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
-        
-        // PickerView
-        characterPicker.delegate = self
-        characterPicker.dataSource = self
     }
     
     func fetchCharacterHome(_ character: Character) {
@@ -126,10 +97,10 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             switch result {
                 case .success(let home):
-                    self.info2Label.text = home.name
+                    self.baseController?.info2Label.text = home.name
                 case .failure(let error):
                     print(error)
-                    self.info2Label.text = "Unavailable"
+                    self.baseController?.info2Label.text = "Unavailable"
             }
         }
     }
@@ -146,7 +117,7 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     }
                 }
                 
-                self.info6Label.text = "\(vehicleNamesArray.joined(separator: ", "))"
+                self.baseController?.info6Label.text = "\(vehicleNamesArray.joined(separator: ", "))"
                 
             case .failure(let error):
                 print(error)
@@ -155,37 +126,37 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func updateLabelsFor(_ character: Character) {
-        self.nameLabel.text = selectedCharacter?.name
+        self.baseController?.titleLabel.text = selectedCharacter?.name
         
         if let yearOfBirth = selectedCharacter?.yearOfBirth {
-            self.info1Label.text = yearOfBirth
+            baseController?.info1Label.text = yearOfBirth
         } else {
-            info1Label.text = "unknown"
+            baseController?.info1Label.text = "unknown"
         }
         
         fetchCharacterHome(selectedCharacter!)
         
         if let characterHeight = selectedCharacter?.heightDouble {
-            self.info3Label.text = "\(characterHeight) cm"
+            baseController?.info3Label.text = "\(characterHeight) cm"
         }
         
         if let eyeColor = selectedCharacter?.eyeColor {
-            info4Label.text = eyeColor
+            baseController?.info4Label.text = eyeColor
         } else {
-            info4Label.text = "unknown"
+            baseController?.info4Label.text = "unknown"
         }
         
         if let hairColor = selectedCharacter?.hairColor {
-            info5Label.text = hairColor
+            baseController?.info5Label.text = hairColor
         } else {
-            info5Label.text = "unknown"
+            baseController?.info5Label.text = "unknown"
         }
         
         fetchVehiclesForCharacter(selectedCharacter!)
         
         // Conversion Buttons Color
-        self.EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
-        self.MetricButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
+        baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
         
     }
     
@@ -193,7 +164,55 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: PickerViewDelegate
+    // MARK: English and Metric Conversions
+    
+    func englishToMetric() {
+        baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
+        baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
+        
+        if let characterHeight = selectedCharacter?.heightDouble {
+            baseController?.info3Label.text = "\(characterHeight) cm"
+        }
+    }
+    
+    func metricToEnglish() {
+        baseController?.metricButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
+        baseController?.englishButton.setTitleColor(UIColor.white, for: UIControlState())
+        
+        if let characterHeight = selectedCharacter?.heightDouble {
+            let englishHeight = characterHeight.cmToFeet()
+            baseController?.info3Label.text = "\(englishHeight) ft"
+        }
+        
+    }
+    
+    // MARK: Smallest and Largest Characters
+    
+    func smallestAndLargest(_ characters: [Character]) -> (smallest: Character, largest: Character) {
+        var charactersWithHeight = [Character]()
+        for character in characters {
+            if character.heightDouble != nil {
+                charactersWithHeight.append(character)
+            }
+        }
+        let sortedCharacters = charactersWithHeight.sorted { $0.heightDouble! < $1.heightDouble! }
+        return (sortedCharacters.first!, sortedCharacters.last!)
+    }
+    
+    // MARK: Network Alert
+    
+    func showCheckConnectionAlert() {
+        showAlert(withTitle: "Error", andMessage: "Check network connection and try again")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
+    }
+}
+
+// MARK: - UIPickerViewDataSource and Delegate
+
+extension CharactersViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -215,12 +234,12 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else {
             return "Awaiting character arrival"
         }
-    
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        info6Label.text = ""
+        baseController?.info6Label.text = ""
         
         if let characters = charactersArray {
             let character = characters[row]
@@ -228,51 +247,4 @@ class CharactersViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
-    // MARK: English and Metric Conversions
-    
-    func englishToMetric() {
-        EnglishButton.setTitleColor(unselectedColor, for: UIControlState())
-        MetricButton.setTitleColor(UIColor.white, for: UIControlState())
-        
-        if let characterHeight = selectedCharacter?.heightDouble {
-            info3Label.text = "\(characterHeight) cm"
-        }
-    }
-    
-    func metricToEnglish() {
-        MetricButton.setTitleColor(unselectedColor, for: UIControlState())
-        EnglishButton.setTitleColor(UIColor.white, for: UIControlState())
-        
-        if let characterHeight = selectedCharacter?.heightDouble {
-            let englishHeight = characterHeight * 0.328084
-            info3Label.text = "\(englishHeight) ft"
-        }
-        
-    }
-    
-    // MARK: Smallest and Largest Characters
-    
-    func smallestAndLargest(_ characters: [Character]) -> (smallest: Character, largest: Character) {
-        var charactersWithHeight = [Character]()
-        for character in characters {
-            if character.heightDouble != nil {
-                charactersWithHeight.append(character)
-            }
-        }
-        let sortedCharacters = charactersWithHeight.sorted { $0.heightDouble! < $1.heightDouble! }
-        return (sortedCharacters.first!, sortedCharacters.last!)
-    }
-    
-    // MARK: Network Alert
-    
-    func showCheckConnectionAlert() {
-        let alert = UIAlertController(title: "Error", message: "Check network connection and try again", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ConnectionError"), object: nil)
-    }
 }
