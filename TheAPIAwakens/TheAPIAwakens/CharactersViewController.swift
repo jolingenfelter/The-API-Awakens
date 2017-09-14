@@ -11,7 +11,6 @@ import UIKit
 class CharactersViewController: SwapiContainerViewController {
 
     // Variables
-    let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
     var charactersArray: [Character]?
     let swapiClient = SwapiClient()
     var selectedCharacter: Character? {
@@ -156,7 +155,7 @@ class CharactersViewController: SwapiContainerViewController {
         fetchVehiclesForCharacter(selectedCharacter!)
         
         // Conversion Buttons Color
-        baseController?.englishButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
         baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
         
     }
@@ -168,7 +167,7 @@ class CharactersViewController: SwapiContainerViewController {
     // MARK: English and Metric Conversions
     
     func englishToMetric() {
-        baseController?.englishButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
         baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let characterHeight = selectedCharacter?.heightDouble {
@@ -177,11 +176,11 @@ class CharactersViewController: SwapiContainerViewController {
     }
     
     func metricToEnglish() {
-        baseController?.metricButton.setTitleColor(unselectedColor, for: UIControlState())
+        baseController?.metricButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
         baseController?.englishButton.setTitleColor(UIColor.white, for: UIControlState())
         
         if let characterHeight = selectedCharacter?.heightDouble {
-            let englishHeight = characterHeight * 0.328084
+            let englishHeight = characterHeight.cmToFeet()
             baseController?.info3Label.text = "\(englishHeight) ft"
         }
         

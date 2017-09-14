@@ -11,7 +11,6 @@ import UIKit
 class VehiclesViewController: SwapiContainerViewController {
     
     // Variables
-    let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
     var vehiclesArray: [Vehicle]?
     let swapiClient = SwapiClient()
     var selectedVehicle: Vehicle? {
@@ -129,10 +128,10 @@ class VehiclesViewController: SwapiContainerViewController {
         }
         
         // Conversion Buttons Color 
-        self.baseController?.englishButton.setTitleColor(unselectedColor, for: .normal)
-        self.baseController?.metricButton.setTitleColor(UIColor.white, for: .normal)
-        self.baseController?.usdButton.setTitleColor(unselectedColor, for: .normal)
-        self.baseController?.creditsButton.setTitleColor(UIColor.white, for: .normal)
+        self.baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        self.baseController?.metricButton.setTitleColor(.white, for: .normal)
+        self.baseController?.usdButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        self.baseController?.creditsButton.setTitleColor(.white, for: .normal)
         
  
     }
@@ -146,8 +145,8 @@ class VehiclesViewController: SwapiContainerViewController {
     // MARK: English and Metric Conversions
     
     func englishToMetric() {
-        baseController?.englishButton.setTitleColor(unselectedColor, for: .normal)
-        baseController?.metricButton.setTitleColor(UIColor.white, for: .normal)
+        baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        baseController?.metricButton.setTitleColor(.white, for: .normal)
         
         if let vehicleLength = selectedVehicle?.lengthDouble {
             baseController?.info3Label.text = "\(vehicleLength) cm"
@@ -155,8 +154,8 @@ class VehiclesViewController: SwapiContainerViewController {
     }
     
     func metricToEnglish() {
-        baseController?.metricButton.setTitleColor(unselectedColor, for: .normal)
-        baseController?.englishButton.setTitleColor(UIColor.white, for: .normal)
+        baseController?.metricButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        baseController?.englishButton.setTitleColor(.white, for: .normal)
         
         if let vehicleLength = selectedVehicle?.lengthDouble {
             let englishLength = vehicleLength.metersToYards()
@@ -168,8 +167,8 @@ class VehiclesViewController: SwapiContainerViewController {
     // MARK: USD and Credits Conversion
     
     func usdToCredits() {
-        baseController?.usdButton.setTitleColor(unselectedColor, for: .normal)
-        baseController?.creditsButton.setTitleColor(UIColor.white, for: .normal)
+        baseController?.usdButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        baseController?.creditsButton.setTitleColor(.white, for: .normal)
         
         if let vehicleCost = selectedVehicle?.costDouble {
             baseController?.info2Label.text = "\(vehicleCost) credits"
@@ -178,32 +177,7 @@ class VehiclesViewController: SwapiContainerViewController {
     
     func creditsToUSD() {
         
-        let userText = baseController?.conversionTextField.text
-        
-        guard userText != "", let exchangeRateString = userText, let exchangeRate = Double(exchangeRateString) else {
-            self.hasExchangeRate = false
-            baseController?.conversionTextField.text = ""
-            showAlert(withTitle: "Invalid exchange rate", andMessage: "Enter a valid exchange rate")
-            baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
-            baseController?.creditsButton.setTitleColor(.white, for: UIControlState())
-            return
-        }
-        
-        do {
-            try selectedVehicle?.usdCost(exchangeRate: exchangeRate) { (convertedCost) in
-                self.hasExchangeRate = true
-                self.baseController?.info2Label.text = "$\(convertedCost)"
-                self.baseController?.usdButton.setTitleColor(.white, for: .normal)
-                self.baseController?.creditsButton.setTitleColor(self.unselectedColor, for: .normal)
-            }
-            
-        } catch ConversionError.UnavailableCost {
-            showAlert(withTitle: "Error", andMessage: ConversionError.UnavailableCost.rawValue)
-        } catch ConversionError.InvalidExchangeRate {
-            showAlert(withTitle: "Error", andMessage: ConversionError.InvalidExchangeRate.rawValue)
-        } catch let error {
-            showAlert(withTitle: "Error", andMessage: error.localizedDescription)
-        }
+        baseController?.creditsToUSD(priceableObject: selectedVehicle!)
     }
 
     //MARK: Smallest and Largest

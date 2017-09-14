@@ -11,7 +11,6 @@ import UIKit
 class StarshipsViewController: SwapiContainerViewController {
     
     // Variables
-    let unselectedColor = UIColor(red: 140/255, green: 140/255.0, blue: 140/255.0, alpha: 1.0)
     var starshipsArray: [Starship]?
     let swapiClient = SwapiClient()
     var selectedStarship: Starship? {
@@ -135,10 +134,10 @@ class StarshipsViewController: SwapiContainerViewController {
         }
         
         // Conversion Buttons Color
-        self.baseController?.englishButton.setTitleColor(unselectedColor, for: .normal)
-        self.baseController?.metricButton.setTitleColor(UIColor.white, for: .normal)
-        self.baseController?.usdButton.setTitleColor(unselectedColor, for: .normal)
-        self.baseController?.creditsButton.setTitleColor(UIColor.white, for: .normal)
+        self.baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        self.baseController?.metricButton.setTitleColor(.white, for: .normal)
+        self.baseController?.usdButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        self.baseController?.creditsButton.setTitleColor(.white, for: .normal)
         
     }
 
@@ -152,8 +151,8 @@ class StarshipsViewController: SwapiContainerViewController {
     // MARK: English and Metric Conversions
     
     func englishToMetric() {
-        baseController?.englishButton.setTitleColor(unselectedColor, for: UIControlState())
-        baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        baseController?.metricButton.setTitleColor(.white, for: .normal)
         
         if let starshipLength = selectedStarship?.lengthDouble {
             baseController?.info3Label.text = "\(starshipLength) m"
@@ -161,8 +160,8 @@ class StarshipsViewController: SwapiContainerViewController {
     }
     
     func metricToEnglish() {
-        baseController?.metricButton.setTitleColor(unselectedColor, for: UIControlState())
-        baseController?.englishButton.setTitleColor(UIColor.white, for: UIControlState())
+        baseController?.metricButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        baseController?.englishButton.setTitleColor(.white, for: .normal)
         
         if let starshipLength = selectedStarship?.lengthDouble {
             let englishLength = starshipLength.metersToYards()
@@ -175,8 +174,8 @@ class StarshipsViewController: SwapiContainerViewController {
     
     func usdToCredits() {
         
-        baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
-        baseController?.creditsButton.setTitleColor(.white, for: UIControlState())
+        baseController?.usdButton.setTitleColor(baseController?.unselectedColor, for: .normal)
+        baseController?.creditsButton.setTitleColor(.white, for: .normal)
         
         if let starshipCost = selectedStarship?.costString{
             baseController?.info2Label.text = "\(starshipCost) credits"
@@ -185,32 +184,7 @@ class StarshipsViewController: SwapiContainerViewController {
     
     func creditsToUSD() {
         
-        let userText = baseController?.conversionTextField.text
-        
-        guard userText != "", let exchangeRateString = userText, let exchangeRate = Double(exchangeRateString) else {
-            self.hasExchangeRate = false
-            baseController?.conversionTextField.text = ""
-            showAlert(withTitle: "Invalid exchange rate", andMessage: "Enter a valid exchange rate")
-            baseController?.usdButton.setTitleColor(unselectedColor, for: UIControlState())
-            baseController?.creditsButton.setTitleColor(.white, for: UIControlState())
-            return
-        }
-        
-        do {
-                try selectedStarship?.usdCost(exchangeRate: exchangeRate) { (convertedCost) in
-                self.hasExchangeRate = true
-                self.baseController?.info2Label.text = "$\(convertedCost)"
-                self.baseController?.usdButton.setTitleColor(.white, for: .normal)
-                self.baseController?.creditsButton.setTitleColor(self.unselectedColor, for: .normal)
-            }
-            
-        } catch ConversionError.UnavailableCost {
-            showAlert(withTitle: "Error", andMessage: ConversionError.UnavailableCost.rawValue)
-        } catch ConversionError.InvalidExchangeRate {
-            showAlert(withTitle: "Error", andMessage: ConversionError.InvalidExchangeRate.rawValue)
-        } catch let error {
-            showAlert(withTitle: "Error", andMessage: error.localizedDescription)
-        }
+        baseController?.creditsToUSD(priceableObject: selectedStarship!)
 
     }
     

@@ -12,12 +12,12 @@ struct Starship: Priceable {
     
     let name: String?
     let model: String?
-    internal var costString: String?
+    var costString: String?
     let lengthString: String?
     let starshipClass: String?
     let crew: String?
     
-    internal var costDouble: Double?
+    var costDouble: Double?
     let lengthDouble: Double?
     
 }
