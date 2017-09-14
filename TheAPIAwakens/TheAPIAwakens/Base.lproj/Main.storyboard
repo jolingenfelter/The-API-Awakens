@@ -28,6 +28,9 @@
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3A-Xj-dHL">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-characters"/>
+                                        <connections>
+                                            <segue destination="ka9-Qh-zjT" kind="show" id="dne-IF-IpU"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pni-gJ-gVq">
                                         <rect key="frame" x="0.0" y="110" width="100" height="21.5"/>
@@ -142,7 +145,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vdM-j5-DwT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1677.5999999999999" y="247.82608695652175"/>
+            <point key="canvasLocation" x="1662" y="36"/>
+        </scene>
+        <!--Characters View Controller-->
+        <scene sceneID="Gc9-D1-RiT">
+            <objects>
+                <viewController id="ka9-Qh-zjT" customClass="CharactersViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IzI-0I-Vct"/>
+                        <viewControllerLayoutGuide type="bottom" id="G1E-bR-VJY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Udp-8N-HKW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bq4-Ms-OF2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <segue destination="lwu-M0-lRP" kind="embed" id="JrW-Vg-hkx"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bq4-Ms-OF2" secondAttribute="trailing" id="HJj-6t-Fru"/>
+                            <constraint firstItem="bq4-Ms-OF2" firstAttribute="leading" secondItem="Udp-8N-HKW" secondAttribute="leading" id="Hoc-Yt-U9J"/>
+                            <constraint firstItem="bq4-Ms-OF2" firstAttribute="top" secondItem="Udp-8N-HKW" secondAttribute="top" id="Oqz-et-heK"/>
+                            <constraint firstItem="G1E-bR-VJY" firstAttribute="top" secondItem="bq4-Ms-OF2" secondAttribute="bottom" id="p5S-BE-RMx"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e0o-aG-fo0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1661.5999999999999" y="-628.33583208395805"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UmB-V1-gaA">
@@ -554,7 +589,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I8d-7A-WKQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1677.5999999999999" y="-448.42578710644682"/>
+            <point key="canvasLocation" x="1662" y="718"/>
         </scene>
     </scenes>
     <resources>
@@ -563,6 +598,6 @@
         <image name="icon-vehicles" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="K3p-ek-3Qu"/>
+        <segue reference="JrW-Vg-hkx"/>
     </inferredMetricsTieBreakers>
 </document>
