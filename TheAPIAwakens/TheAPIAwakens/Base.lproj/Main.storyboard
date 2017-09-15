@@ -91,7 +91,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.10830820350000001" green="0.1235846952" blue="0.13849681620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EuZ-ym-yub" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="00Y-H9-gEM"/>
                             <constraint firstItem="jwG-k8-RAc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2YE-Iw-np8"/>
@@ -460,7 +460,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.10830820350000001" green="0.1235846952" blue="0.13849681620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jkH-w3-m1C" firstAttribute="top" secondItem="FIE-lc-Fvl" secondAttribute="top" id="1Pd-dI-0yC"/>
                             <constraint firstItem="7mI-lS-jGd" firstAttribute="leading" secondItem="uEJ-Qp-8Uf" secondAttribute="leadingMargin" id="2a6-Tx-yS8"/>

@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearance.setBackgroundImage(UIImage(), for: .default)
         navigationBarAppearance.isTranslucent = true
         
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         return true
     }
 
