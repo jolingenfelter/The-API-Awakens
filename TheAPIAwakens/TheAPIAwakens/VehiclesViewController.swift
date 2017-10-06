@@ -144,7 +144,7 @@ class VehiclesViewController: SwapiContainerViewController {
     
     // MARK: English and Metric Conversions
     
-    func englishToMetric() {
+    @objc func englishToMetric() {
         baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: .normal)
         baseController?.metricButton.setTitleColor(.white, for: .normal)
         
@@ -153,7 +153,7 @@ class VehiclesViewController: SwapiContainerViewController {
         }
     }
     
-    func metricToEnglish() {
+    @objc func metricToEnglish() {
         baseController?.metricButton.setTitleColor(baseController?.unselectedColor, for: .normal)
         baseController?.englishButton.setTitleColor(.white, for: .normal)
         
@@ -166,7 +166,7 @@ class VehiclesViewController: SwapiContainerViewController {
     
     // MARK: USD and Credits Conversion
     
-    func usdToCredits() {
+    @objc func usdToCredits() {
         baseController?.usdButton.setTitleColor(baseController?.unselectedColor, for: .normal)
         baseController?.creditsButton.setTitleColor(.white, for: .normal)
         
@@ -175,7 +175,7 @@ class VehiclesViewController: SwapiContainerViewController {
         }
     }
     
-    func creditsToUSD() {
+    @objc func creditsToUSD() {
         
         baseController?.creditsToUSD(priceableObject: selectedVehicle!)
     }
@@ -195,7 +195,7 @@ class VehiclesViewController: SwapiContainerViewController {
     
     // MARK: Network Alert
     
-    func showCheckConnectionAlert() {
+    @objc func showCheckConnectionAlert() {
         showAlert(withTitle: "Error", andMessage: "Check network connection and try again")
     }
     
@@ -227,7 +227,7 @@ extension VehiclesViewController: UITextFieldDelegate {
         return true
     }
     
-    func endTextViewEditing() {
+    @objc func endTextViewEditing() {
         baseController?.conversionTextField.endEditing(true)
         view.endEditing(true)
     }

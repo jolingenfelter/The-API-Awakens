@@ -41,7 +41,7 @@ class CharactersViewController: SwapiContainerViewController {
         self.navigationItem.leftBarButtonItem = backButton
     }
     
-    func backPressed() {
+    @objc func backPressed() {
         if let navigationController = self.navigationController {
             navigationController.popToRootViewController(animated: true)
         }
@@ -166,7 +166,7 @@ class CharactersViewController: SwapiContainerViewController {
     
     // MARK: English and Metric Conversions
     
-    func englishToMetric() {
+    @objc func englishToMetric() {
         baseController?.englishButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
         baseController?.metricButton.setTitleColor(UIColor.white, for: UIControlState())
         
@@ -175,7 +175,7 @@ class CharactersViewController: SwapiContainerViewController {
         }
     }
     
-    func metricToEnglish() {
+    @objc func metricToEnglish() {
         baseController?.metricButton.setTitleColor(baseController?.unselectedColor, for: UIControlState())
         baseController?.englishButton.setTitleColor(UIColor.white, for: UIControlState())
         
@@ -201,7 +201,7 @@ class CharactersViewController: SwapiContainerViewController {
     
     // MARK: Network Alert
     
-    func showCheckConnectionAlert() {
+    @objc func showCheckConnectionAlert() {
         showAlert(withTitle: "Error", andMessage: "Check network connection and try again")
     }
     
