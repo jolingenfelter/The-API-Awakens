@@ -1,3 +1,3 @@
 # The-API-Awakens
 
-This is a simple app for viewing data from the Starwars API.  Users can learn about characters, starships, and vehicles.
+A simple app that makes networking calls so the user can view data from the Starwars API.  Users can learn about characters, starships, and vehicles.
