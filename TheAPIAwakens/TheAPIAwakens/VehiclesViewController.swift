@@ -73,22 +73,22 @@ class VehiclesViewController: SwapiContainerViewController {
     func setupVehiclePicker() {
         
         // SwapiClient
-        swapiClient.fetchVehicles { result in
+        swapiClient.fetchVehicles { [weak self] result in
             switch result {
                 case .success(let vehicles):
-                    self.vehiclesArray = vehicles
+                    self?.vehiclesArray = vehicles
                     
-                    self.baseController?.smallestObjectLabel.text = self.smallestAndLargest(vehicles).smallest.name
-                    self.baseController?.largestObjectLabel.text = self.smallestAndLargest(vehicles).largest.name
+                    self?.baseController?.smallestObjectLabel.text = self?.smallestAndLargest(vehicles).smallest.name
+                    self?.baseController?.largestObjectLabel.text = self?.smallestAndLargest(vehicles).largest.name
                 
-                    self.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
+                    self?.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
                 
-                    self.selectedVehicle = vehicles[(self.baseController?.picker.selectedRow(inComponent: 0))!]
+                    self?.selectedVehicle = vehicles[(self?.baseController?.picker.selectedRow(inComponent: 0))!]
                 
-                    self.baseController?.picker.reloadAllComponents()
+                    self?.baseController?.picker.reloadAllComponents()
                 
             case .failure(let error):
-               self.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
+               self?.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
         

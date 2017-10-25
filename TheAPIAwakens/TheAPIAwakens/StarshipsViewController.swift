@@ -75,22 +75,22 @@ class StarshipsViewController: SwapiContainerViewController {
     func fetchAndLoadStarships() {
         
         // SwapiClient
-        swapiClient.fetchStarships { result in
+        swapiClient.fetchStarships { [weak self] result in
             switch result {
                 case .success(let starships):
-                    self.starshipsArray = starships
+                    self?.starshipsArray = starships
                 
-                    self.baseController?.smallestObjectLabel.text = self.smallestAndLargest(starships).smallest.name
-                    self.baseController?.largestObjectLabel.text = self.smallestAndLargest(starships).largest.name
+                    self?.baseController?.smallestObjectLabel.text = self?.smallestAndLargest(starships).smallest.name
+                    self?.baseController?.largestObjectLabel.text = self?.smallestAndLargest(starships).largest.name
                 
-                    self.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
+                    self?.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
                 
-                    self.selectedStarship = starships[(self.baseController?.picker.selectedRow(inComponent: 0))!]
+                    self?.selectedStarship = starships[(self?.baseController?.picker.selectedRow(inComponent: 0))!]
                 
-                    self.baseController?.picker.reloadAllComponents()
+                    self?.baseController?.picker.reloadAllComponents()
                 
                 case .failure(let error):
-                    self.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
+                    self?.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
                 
             }
         }

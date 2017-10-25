@@ -68,26 +68,27 @@ class CharactersViewController: SwapiContainerViewController {
     func setupCharacterPicker() {
         
         // SwapiClient
-        swapiClient.fetchCharacters { result in
+        swapiClient.fetchCharacters { [weak self] result in
             switch result {
             case .success(let characters):
-                self.charactersArray = characters
+                self?.charactersArray = characters
                 
-                self.baseController?.smallestObjectLabel.text = self.smallestAndLargest(characters).smallest.name
-                self.baseController?.largestObjectLabel.text = self.smallestAndLargest(characters).largest.name
+                self?.baseController?.smallestObjectLabel.text = self?.smallestAndLargest(characters).smallest.name
+                self?.baseController?.largestObjectLabel.text = self?.smallestAndLargest(characters).largest.name
                 
-                self.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
+                self?.baseController?.picker.selectRow(0, inComponent: 0, animated: true)
                 
-                self.selectedCharacter = characters[(self.baseController?.picker.selectedRow(inComponent: 0))!]
+                self?.selectedCharacter = characters[(self?.baseController?.picker.selectedRow(inComponent: 0))!]
                 
-                self.fetchCharacterHome(self.selectedCharacter!)
+                if let selectedCharacter = self?.selectedCharacter {
+                    self?.fetchCharacterHome(selectedCharacter)
+                    self?.fetchVehiclesForCharacter(selectedCharacter)
+                }
                 
-                self.fetchVehiclesForCharacter(self.selectedCharacter!)
-                
-                self.baseController?.picker.reloadAllComponents()
+                self?.baseController?.picker.reloadAllComponents()
             
             case .failure(let error):
-                self.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
+                self?.showAlert(withTitle: "Error", andMessage: error.localizedDescription)
             }
         }
     }
