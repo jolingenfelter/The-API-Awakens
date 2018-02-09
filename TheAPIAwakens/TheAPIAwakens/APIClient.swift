@@ -11,6 +11,7 @@ import Foundation
 public let TRENetworkingErrorDomain = "com.jolingenfelter.APIAwakens.NetworkingError"
 public let MissingHTTPResponseError: Int = 10
 public let UnexpectedResponseError: Int = 20
+ public let AbnormalError: Int = 30
 
 typealias JSON = [String : AnyObject]
 typealias JSONTaskCompletion = (JSON?, HTTPURLResponse?, NSError?) -> Void
@@ -84,7 +85,8 @@ extension APIClient {
                     if let error = error {
                         completion(.failure(error))
                     } else {
-                        
+                        let error = NSError(domain: TRENetworkingErrorDomain, code: AbnormalError, userInfo: nil)
+                        completion(.failure(error))
                     }
                     
                     return
