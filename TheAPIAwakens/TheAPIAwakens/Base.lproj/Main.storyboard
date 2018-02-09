@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zhQ-X6-Ynq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zhQ-X6-Ynq">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,9 +28,6 @@
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3A-Xj-dHL">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-characters"/>
-                                        <connections>
-                                            <segue destination="ka9-Qh-zjT" kind="show" id="dne-IF-IpU"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pni-gJ-gVq">
                                         <rect key="frame" x="0.0" y="110" width="100" height="21.5"/>
@@ -46,9 +43,6 @@
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t5l-Sz-Ned">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-vehicles"/>
-                                        <connections>
-                                            <segue destination="QhN-Mv-bx0" kind="show" id="dm1-Ac-fcS"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Dg-l8-LiN">
                                         <rect key="frame" x="0.0" y="110" width="100" height="21.5"/>
@@ -64,9 +58,6 @@
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRp-OQ-rCO">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-starships"/>
-                                        <connections>
-                                            <segue destination="KNL-WA-DqZ" kind="show" id="b3x-rK-SF2"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starships" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhz-m8-7ST">
                                         <rect key="frame" x="0.0" y="110" width="100" height="21.5"/>
@@ -110,6 +101,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xgj-s4-dTb"/>
+                    <connections>
+                        <outlet property="charactersCenterX" destination="9qk-DH-IEs" id="wei-xb-3BF"/>
+                        <outlet property="charactersStackView" destination="yBn-3c-bEu" id="Uek-3x-1Zb"/>
+                        <outlet property="starshipsCenterX" destination="2YE-Iw-np8" id="aCg-10-7Qs"/>
+                        <outlet property="starshipsStackView" destination="jwG-k8-RAc" id="Vvu-8U-iAn"/>
+                        <outlet property="vehiclesCenterX" destination="Uox-ey-lzm" id="G0h-2q-Yev"/>
+                        <outlet property="vehiclesStackView" destination="32b-jk-W4x" id="jED-vL-7zh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -128,7 +127,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gn7-rz-43I">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="-44" width="375" height="711"/>
                                 <connections>
                                     <segue destination="lwu-M0-lRP" kind="embed" id="GFd-a8-ksv"/>
                                 </connections>
@@ -573,7 +572,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kif-ic-xuM">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="-44" width="375" height="711"/>
                                 <connections>
                                     <segue destination="lwu-M0-lRP" kind="embed" id="K3p-ek-3Qu"/>
                                 </connections>
