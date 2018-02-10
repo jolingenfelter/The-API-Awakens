@@ -45,11 +45,11 @@ class StarshipsViewController: SwapiContainerViewController {
     func setupNavigationBar() {
         self.title = "Starships"
         
-        let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(CharactersViewController.backPressed))
+        let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(StarshipsViewController.backPressed))
         self.navigationItem.leftBarButtonItem = backButton
     }
     
-    func backPressed() {
+    @objc func backPressed() {
         if let navigationController = self.navigationController {
             navigationController.popToRootViewController(animated: true)
         }
