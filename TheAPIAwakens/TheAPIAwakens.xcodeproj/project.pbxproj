@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6326AF54202F804500FA838F /* SwipeAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6326AF53202F804500FA838F /* SwipeAnimator.swift */; };
 		9E6271AE1F673FD000622101 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6271AD1F673FD000622101 /* Character.swift */; };
 		9E6271B01F673FEC00622101 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6271AF1F673FEC00622101 /* Vehicle.swift */; };
 		9E6271B21F67402300622101 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6271B11F67402300622101 /* Starship.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6326AF53202F804500FA838F /* SwipeAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAnimator.swift; sourceTree = "<group>"; };
 		9E6271AD1F673FD000622101 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		9E6271AF1F673FEC00622101 /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		9E6271B11F67402300622101 /* Starship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				9EE7644B1F697F8D0074A6E4 /* UIViewControllerExtension.swift */,
 				9EBC9C2D1F69C28B00440C71 /* DoubleExtension.swift */,
+				6326AF53202F804500FA838F /* SwipeAnimator.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				9EF889241F684B3400331539 /* SwapiContainerViewController.swift in Sources */,
 				9E6271B21F67402300622101 /* Starship.swift in Sources */,
 				9EE7644F1F69814D0074A6E4 /* Priceable.swift in Sources */,
+				6326AF54202F804500FA838F /* SwipeAnimator.swift in Sources */,
 				9ED269B61DA9C68F00002810 /* StarshipsViewController.swift in Sources */,
 				9EC3FB9A1D9EA82600A83C3B /* HomeViewController.swift in Sources */,
 				9ED269B41DA994AB00002810 /* VehiclesViewController.swift in Sources */,

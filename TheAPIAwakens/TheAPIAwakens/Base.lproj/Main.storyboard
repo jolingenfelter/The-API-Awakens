@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-characters"/>
                                         <connections>
-                                            <segue destination="ka9-Qh-zjT" kind="show" id="pl8-Ay-5kW"/>
+                                            <segue destination="ka9-Qh-zjT" kind="show" identifier="characters" id="pl8-Ay-5kW"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pni-gJ-gVq">
@@ -47,7 +47,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-vehicles"/>
                                         <connections>
-                                            <segue destination="QhN-Mv-bx0" kind="show" id="u6S-q2-XOj"/>
+                                            <segue destination="QhN-Mv-bx0" kind="show" identifier="vehicles" id="u6S-q2-XOj"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehicles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Dg-l8-LiN">
@@ -65,7 +65,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <state key="normal" image="icon-starships"/>
                                         <connections>
-                                            <segue destination="KNL-WA-DqZ" kind="show" id="oKa-DA-qj4"/>
+                                            <segue destination="KNL-WA-DqZ" kind="show" identifier="starships" id="oKa-DA-qj4"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starships" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhz-m8-7ST">
@@ -113,6 +113,8 @@
                     <connections>
                         <outlet property="charactersCenterX" destination="9qk-DH-IEs" id="wei-xb-3BF"/>
                         <outlet property="charactersStackView" destination="yBn-3c-bEu" id="Uek-3x-1Zb"/>
+                        <outlet property="separator1" destination="T4M-ra-8cs" id="hdy-67-TFR"/>
+                        <outlet property="separator2" destination="EuZ-ym-yub" id="hPh-fX-d6V"/>
                         <outlet property="starshipsCenterX" destination="2YE-Iw-np8" id="aCg-10-7Qs"/>
                         <outlet property="starshipsStackView" destination="jwG-k8-RAc" id="Vvu-8U-iAn"/>
                         <outlet property="vehiclesCenterX" destination="Uox-ey-lzm" id="G0h-2q-Yev"/>
@@ -126,7 +128,7 @@
         <!--Vehicles View Controller-->
         <scene sceneID="fP9-TS-ZJU">
             <objects>
-                <viewController id="QhN-Mv-bx0" customClass="VehiclesViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VehiclesVC" id="QhN-Mv-bx0" customClass="VehiclesViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WLx-Un-ZP2"/>
                         <viewControllerLayoutGuide type="bottom" id="Nc7-3C-Iwu"/>
@@ -158,7 +160,7 @@
         <!--Characters View Controller-->
         <scene sceneID="Gc9-D1-RiT">
             <objects>
-                <viewController id="ka9-Qh-zjT" customClass="CharactersViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CharactersVC" id="ka9-Qh-zjT" customClass="CharactersViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IzI-0I-Vct"/>
                         <viewControllerLayoutGuide type="bottom" id="G1E-bR-VJY"/>
@@ -571,7 +573,7 @@
         <!--Starships View Controller-->
         <scene sceneID="8TL-dl-p2b">
             <objects>
-                <viewController id="KNL-WA-DqZ" customClass="StarshipsViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StarshipsVC" id="KNL-WA-DqZ" customClass="StarshipsViewController" customModule="TheAPIAwakens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lv7-ie-75D"/>
                         <viewControllerLayoutGuide type="bottom" id="jhu-Im-oD0"/>
@@ -607,6 +609,6 @@
         <image name="icon-vehicles" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JrW-Vg-hkx"/>
+        <segue reference="K3p-ek-3Qu"/>
     </inferredMetricsTieBreakers>
 </document>
