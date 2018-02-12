@@ -129,6 +129,9 @@ extension HomeViewController: UINavigationControllerDelegate {
     }
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if !swipeTransition.interactive {
+            return nil
+        }
         
         return !swipeTransition.interactive ? nil : swipeTransition
     }
