@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheAPIAwakens/SwipeAnimator.swift"
-            timestampString = "543359040.394769"
+            filePath = "TheAPIAwakens/HomeViewController.swift"
+            timestampString = "543359272.032523"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "animateTransition(using:)"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "navigationController(_:animationControllerFor:from:to:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

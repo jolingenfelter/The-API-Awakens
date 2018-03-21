@@ -89,6 +89,7 @@ extension HomeViewController {
         }
         switch recognizer.state {
         case .began:
+            swipeTransition.panning = true
             swipeTransition.interactive = true
             determineToViewController(point: touchPoint, completion: { (segueIdentifier) in
                 self.performSegue(withIdentifier: segueIdentifier, sender: nil)

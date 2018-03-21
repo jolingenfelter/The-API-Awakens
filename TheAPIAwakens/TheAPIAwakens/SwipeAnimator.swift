@@ -60,7 +60,6 @@ class SwipeAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnima
         progress = min(max(progress, 0.01), 0.99)
         switch recognizer.state {
         case .changed:
-            panning = true
             update(progress)
         case .cancelled, .ended:
             if progress < 0.5 {
