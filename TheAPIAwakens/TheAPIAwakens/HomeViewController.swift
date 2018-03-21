@@ -90,7 +90,6 @@ extension HomeViewController {
         switch recognizer.state {
         case .began:
             swipeTransition.interactive = true
-            swipeTransition.panning = true
             determineToViewController(point: touchPoint, completion: { (segueIdentifier) in
                 self.performSegue(withIdentifier: segueIdentifier, sender: nil)
             })
@@ -134,8 +133,11 @@ extension HomeViewController: UINavigationControllerDelegate {
     }
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if !swipeTransition.interactive {
+            return nil
+        }
         
-        return !swipeTransition.interactive ? nil : swipeTransition
+        return swipeTransition
     }
     
 }

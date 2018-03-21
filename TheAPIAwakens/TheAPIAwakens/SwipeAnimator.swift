@@ -14,8 +14,8 @@ class SwipeAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnima
     weak var storedContext: UIViewControllerContextTransitioning?
     private var pausedTime: CFTimeInterval = 0
     var interactive = false
-    var panning = false
     var operation: UINavigationControllerOperation = .push
+    var panning = false
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return animationDuration
@@ -23,27 +23,24 @@ class SwipeAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnima
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-        storedContext = transitionContext
-        
-        if operation == .push {
-            
-            guard let fromVC = transitionContext.viewController(forKey: .from), let toVC = transitionContext.viewController(forKey: .to) else {
-                return
-            }
-            
-            let finalFrame = transitionContext.finalFrame(for: toVC)
-            toVC.view.frame = finalFrame
-            let containerView = transitionContext.containerView
-            containerView.addSubview(toVC.view)
-
-            let topSlide = CABasicAnimation(keyPath: "position.x")
-            topSlide.fromValue = 0
-            topSlide.toValue = -fromVC.view.frame.width
-            topSlide.duration = animationDuration
-            topSlide.delegate = self
-            fromVC.view.layer.add(topSlide, forKey: nil)
+        if interactive {
+            let transitionLayer = transitionContext.containerView.layer
+            pausedTime = transitionLayer.convertTime(CACurrentMediaTime(), from: nil)
+            transitionLayer.speed = 0
+            transitionLayer.timeOffset = pausedTime
         }
         
+        if operation == .push {
+            storedContext = transitionContext
+            
+            guard let fromVC = transitionContext.viewController(forKey: .from), let toVC = transitionContext.viewController(forKey: .to) else { return }
+            
+            transitionContext.containerView.addSubview(toVC.view)
+            let finalFrame = transitionContext.finalFrame(for: toVC)
+            toVC.view.frame = CGRect(x: finalFrame.maxX, y: 0, width: finalFrame.width, height: finalFrame.height)
+            print(toVC.view.frame)
+            
+        }
     }
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
@@ -58,7 +55,24 @@ class SwipeAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnima
     }
     
     func handlePan(_ recognizer: UIPanGestureRecognizer) {
-        
+        let translation = recognizer.translation(in: recognizer.view!.superview!)
+        var progress: CGFloat = abs(translation.x / 200)
+        progress = min(max(progress, 0.01), 0.99)
+        switch recognizer.state {
+        case .changed:
+            panning = true
+            update(progress)
+        case .cancelled, .ended:
+            if progress < 0.5 {
+                cancel()
+            } else {
+                finish()
+            }
+            panning = false
+            interactive = false
+        default:
+            break
+        }
     }
     
     override func update(_ percentComplete: CGFloat) {
