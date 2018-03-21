@@ -125,13 +125,15 @@ extension HomeViewController: UINavigationControllerDelegate {
                               to toVC: UIViewController) ->
         UIViewControllerAnimatedTransitioning? {
             
-            return swipeTransition.panning ? swipeTransition : nil
+            if swipeTransition.panning {
+                swipeTransition.operation = operation
+                return swipeTransition
+            }
+        
+            return  nil
     }
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if !swipeTransition.interactive {
-            return nil
-        }
         
         return !swipeTransition.interactive ? nil : swipeTransition
     }

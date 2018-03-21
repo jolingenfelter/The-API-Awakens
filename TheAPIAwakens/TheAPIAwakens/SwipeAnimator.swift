@@ -15,6 +15,7 @@ class SwipeAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnima
     private var pausedTime: CFTimeInterval = 0
     var interactive = false
     var panning = false
+    var operation: UINavigationControllerOperation = .push
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return animationDuration
@@ -24,27 +25,24 @@ class SwipeAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnima
         
         storedContext = transitionContext
         
-        guard let fromVC = transitionContext.viewController(forKey: .from), let toVC = transitionContext.viewController(forKey: .to) else {
-            return
+        if operation == .push {
+            
+            guard let fromVC = transitionContext.viewController(forKey: .from), let toVC = transitionContext.viewController(forKey: .to) else {
+                return
+            }
+            
+            let finalFrame = transitionContext.finalFrame(for: toVC)
+            toVC.view.frame = finalFrame
+            let containerView = transitionContext.containerView
+            containerView.addSubview(toVC.view)
+
+            let topSlide = CABasicAnimation(keyPath: "position.x")
+            topSlide.fromValue = 0
+            topSlide.toValue = -fromVC.view.frame.width
+            topSlide.duration = animationDuration
+            topSlide.delegate = self
+            fromVC.view.layer.add(topSlide, forKey: nil)
         }
-        
-        let finalFrame = transitionContext.finalFrame(for: toVC)
-        toVC.view.frame = CGRect(x: finalFrame.width, y: 0, width: finalFrame.width, height: finalFrame.height)
-        let containerView = transitionContext.containerView
-        containerView.addSubview(toVC.view)
-        
-        let topSlide = CABasicAnimation(keyPath: "position.x")
-        topSlide.fromValue = 0
-        topSlide.toValue = -fromVC.view.frame.width
-        topSlide.duration = animationDuration
-        topSlide.delegate = self
-        fromVC.view.layer.add(topSlide, forKey: nil)
-        
-        let bottomSlide = CABasicAnimation(keyPath: "position.x")
-        bottomSlide.fromValue = finalFrame.width
-        bottomSlide.toValue = 0
-        bottomSlide.duration = animationDuration
-        toVC.view.layer.add(bottomSlide, forKey: nil)
         
     }
     
@@ -65,21 +63,24 @@ class SwipeAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnima
     
     override func update(_ percentComplete: CGFloat) {
         super.update(percentComplete)
-        
+        let animationProgress = TimeInterval(animationDuration) * TimeInterval(percentComplete)
+        storedContext?.containerView.layer.timeOffset = pausedTime + animationProgress
     }
     
     override func cancel() {
-        
+        restart(forFinishing: false)
         super.cancel()
     }
     
     override func finish() {
-        
+        restart(forFinishing: true)
         super.finish()
     }
     
     private func restart(forFinishing: Bool) {
-        
+        let transitionLayer = storedContext?.containerView.layer
+        transitionLayer?.beginTime = CACurrentMediaTime()
+        transitionLayer?.speed = forFinishing ? 1 : -1
     }
 }
 
